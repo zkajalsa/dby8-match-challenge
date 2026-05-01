@@ -611,6 +611,7 @@ async function drawWinners() {
 function showMessage(text, type) {
   const area = document.getElementById('message-area');
   area.innerHTML = '<div class="message ' + type + '">' + escapeHtml(text) + '</div>';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   setTimeout(() => { area.innerHTML = ''; }, 6000);
 }
 
