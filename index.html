@@ -288,25 +288,32 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbwM-OD3NTjKqiYEoH1pmgrtlCLGNXawA3mD-ZnsmjqUJalqGUlaX-uhgqJETm9AAcuy/exec';
 
 // ============ COUNTRY FLAGS ============
-const FLAGS = {
-  'Mexico': '🇲🇽', 'South Africa': '🇿🇦', 'South Korea': '🇰🇷', 'Czechia': '🇨🇿',
-  'Czech Republic': '🇨🇿', 'Canada': '🇨🇦', 'Bosnia and Herzegovina': '🇧🇦',
-  'USA': '🇺🇸', 'Paraguay': '🇵🇾', 'Qatar': '🇶🇦', 'Switzerland': '🇨🇭',
-  'Brazil': '🇧🇷', 'Morocco': '🇲🇦', 'Haiti': '🇭🇹', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-  'Australia': '🇦🇺', 'Türkiye': '🇹🇷', 'Turkey': '🇹🇷', 'Germany': '🇩🇪',
-  'Curaçao': '🇨🇼', 'Netherlands': '🇳🇱', 'Japan': '🇯🇵', 'Ivory Coast': '🇨🇮',
-  'Ecuador': '🇪🇨', 'Tunisia': '🇹🇳', 'Sweden': '🇸🇪', 'Spain': '🇪🇸',
-  'Cape Verde': '🇨🇻', 'Belgium': '🇧🇪', 'Egypt': '🇪🇬', 'Saudi Arabia': '🇸🇦',
-  'Uruguay': '🇺🇾', 'Iran': '🇮🇷', 'New Zealand': '🇳🇿', 'France': '🇫🇷',
-  'Senegal': '🇸🇳', 'Norway': '🇳🇴', 'Iraq': '🇮🇶', 'Argentina': '🇦🇷',
-  'Algeria': '🇩🇿', 'Austria': '🇦🇹', 'Jordan': '🇯🇴', 'Portugal': '🇵🇹',
-  'DR Congo': '🇨🇩', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Croatia': '🇭🇷', 'Ghana': '🇬🇭',
-  'Panama': '🇵🇦', 'Uzbekistan': '🇺🇿', 'Colombia': '🇨🇴', 'Italy': '🇮🇹',
-  'Poland': '🇵🇱'
+// Using country codes to generate flag emojis programmatically (avoids encoding issues)
+const COUNTRY_CODES = {
+  'Mexico':'MX','South Africa':'ZA','South Korea':'KR','Czechia':'CZ',
+  'Czech Republic':'CZ','Canada':'CA','Bosnia and Herzegovina':'BA',
+  'USA':'US','Paraguay':'PY','Qatar':'QA','Switzerland':'CH',
+  'Brazil':'BR','Morocco':'MA','Haiti':'HT','Scotland':'GB',
+  'Australia':'AU','Türkiye':'TR','Turkey':'TR','Germany':'DE',
+  'Curaçao':'CW','Netherlands':'NL','Japan':'JP','Ivory Coast':'CI',
+  'Ecuador':'EC','Tunisia':'TN','Sweden':'SE','Spain':'ES',
+  'Cape Verde':'CV','Belgium':'BE','Egypt':'EG','Saudi Arabia':'SA',
+  'Uruguay':'UY','Iran':'IR','New Zealand':'NZ','France':'FR',
+  'Senegal':'SN','Norway':'NO','Iraq':'IQ','Argentina':'AR',
+  'Algeria':'DZ','Austria':'AT','Jordan':'JO','Portugal':'PT',
+  'DR Congo':'CD','England':'GB','Croatia':'HR','Ghana':'GH',
+  'Panama':'PA','Uzbekistan':'UZ','Colombia':'CO','Italy':'IT',
+  'Poland':'PL'
 };
 
 function getFlag(team) {
-  return FLAGS[team] || '🏳️';
+  var code = COUNTRY_CODES[team];
+  if (!code) return '';
+  // Convert country code to flag emoji using regional indicator symbols
+  return String.fromCodePoint(
+    0x1F1E6 + code.charCodeAt(0) - 65,
+    0x1F1E6 + code.charCodeAt(1) - 65
+  );
 }
 
 // ============ STATE ============
