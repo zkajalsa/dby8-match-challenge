@@ -287,6 +287,28 @@
 // ============ CONFIGURATION ============
 const API_URL = 'https://script.google.com/macros/s/AKfycbwM-OD3NTjKqiYEoH1pmgrtlCLGNXawA3mD-ZnsmjqUJalqGUlaX-uhgqJETm9AAcuy/exec';
 
+// ============ COUNTRY FLAGS ============
+const FLAGS = {
+  'Mexico': '🇲🇽', 'South Africa': '🇿🇦', 'South Korea': '🇰🇷', 'Czechia': '🇨🇿',
+  'Czech Republic': '🇨🇿', 'Canada': '🇨🇦', 'Bosnia and Herzegovina': '🇧🇦',
+  'USA': '🇺🇸', 'Paraguay': '🇵🇾', 'Qatar': '🇶🇦', 'Switzerland': '🇨🇭',
+  'Brazil': '🇧🇷', 'Morocco': '🇲🇦', 'Haiti': '🇭🇹', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+  'Australia': '🇦🇺', 'Türkiye': '🇹🇷', 'Turkey': '🇹🇷', 'Germany': '🇩🇪',
+  'Curaçao': '🇨🇼', 'Netherlands': '🇳🇱', 'Japan': '🇯🇵', 'Ivory Coast': '🇨🇮',
+  'Ecuador': '🇪🇨', 'Tunisia': '🇹🇳', 'Sweden': '🇸🇪', 'Spain': '🇪🇸',
+  'Cape Verde': '🇨🇻', 'Belgium': '🇧🇪', 'Egypt': '🇪🇬', 'Saudi Arabia': '🇸🇦',
+  'Uruguay': '🇺🇾', 'Iran': '🇮🇷', 'New Zealand': '🇳🇿', 'France': '🇫🇷',
+  'Senegal': '🇸🇳', 'Norway': '🇳🇴', 'Iraq': '🇮🇶', 'Argentina': '🇦🇷',
+  'Algeria': '🇩🇿', 'Austria': '🇦🇹', 'Jordan': '🇯🇴', 'Portugal': '🇵🇹',
+  'DR Congo': '🇨🇩', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Croatia': '🇭🇷', 'Ghana': '🇬🇭',
+  'Panama': '🇵🇦', 'Uzbekistan': '🇺🇿', 'Colombia': '🇨🇴', 'Italy': '🇮🇹',
+  'Poland': '🇵🇱'
+};
+
+function getFlag(team) {
+  return FLAGS[team] || '🏳️';
+}
+
 // ============ STATE ============
 let currentMatches = [];
 let selectedMatchIndex = 0;
@@ -377,7 +399,7 @@ function renderMatchSelector() {
   currentMatches.forEach((match, idx) => {
     const tab = document.createElement('button');
     tab.className = 'match-tab' + (idx === 0 ? ' active' : '');
-    tab.textContent = match.teamA + ' vs ' + match.teamB;
+    tab.textContent = getFlag(match.teamA) + ' ' + match.teamA + ' vs ' + match.teamB + ' ' + getFlag(match.teamB);
     tab.onclick = () => {
       document.querySelectorAll('.match-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
@@ -396,15 +418,17 @@ function renderMatch(index) {
   document.getElementById('match-display').innerHTML = `
     <div class="match-round">${escapeHtml(match.round || 'Group Stage')}</div>
     <div class="match-teams">
-      <span class="team-name">${escapeHtml(match.teamA)}</span>
+      <span class="team-name">${getFlag(match.teamA)} ${escapeHtml(match.teamA)}</span>
       <span class="vs">VS</span>
-      <span class="team-name">${escapeHtml(match.teamB)}</span>
+      <span class="team-name">${escapeHtml(match.teamB)} ${getFlag(match.teamB)}</span>
     </div>
     <div class="match-date">${formatDate(match.date)}</div>
   `;
 
-  // Update pick button labels
+  // Update pick button labels with flags
+  document.querySelector('[data-pick="teamA"] .pick-icon').textContent = getFlag(match.teamA);
   document.getElementById('pick-team-a').textContent = match.teamA;
+  document.querySelector('[data-pick="teamB"] .pick-icon').textContent = getFlag(match.teamB);
   document.getElementById('pick-team-b').textContent = match.teamB;
 
   // Re-enable submit
