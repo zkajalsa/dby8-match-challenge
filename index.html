@@ -320,6 +320,7 @@ function getFlag(team) {
 let currentMatches = [];
 let selectedMatchIndex = 0;
 let selectedPick = '';
+let submittedMatches = JSON.parse(localStorage.getItem('dby8_submitted') || '[]');
 let isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
 
 // ============ INIT ============
@@ -438,10 +439,16 @@ function renderMatch(index) {
   document.querySelector('[data-pick="teamB"] .pick-icon').textContent = getFlag(match.teamB);
   document.getElementById('pick-team-b').textContent = match.teamB;
 
-  // Re-enable submit
+  // Re-enable submit (unless already submitted for this match)
   const btn = document.getElementById('submit-btn');
-  btn.disabled = false;
-  btn.textContent = 'Submit Prediction';
+  const matchKey = match.date + '|' + match.teamA + ' vs ' + match.teamB;
+  if (submittedMatches.indexOf(matchKey) !== -1) {
+    btn.disabled = true;
+    btn.textContent = 'Already Submitted ✓';
+  } else {
+    btn.disabled = false;
+    btn.textContent = 'Submit Prediction';
+  }
 }
 
 // ============ SUBMIT PREDICTION ============
@@ -481,6 +488,10 @@ async function submitPrediction() {
     if (result && result.success) {
       showMessage('✓ Prediction submitted! ' + name + ' picked: ' + pickLabel, 'success');
       btn.textContent = 'Submitted ✓';
+      // Track this match as submitted
+      const matchKey = match.date + '|' + matchLabel;
+      submittedMatches.push(matchKey);
+      localStorage.setItem('dby8_submitted', JSON.stringify(submittedMatches));
     } else if (result && result.error) {
       showMessage(result.error, 'error');
       btn.disabled = false;
