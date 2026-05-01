@@ -223,12 +223,14 @@
 
           <div class="form-group">
             <label for="shift">Your Shift</label>
-            <select id="shift">
+            <select id="shift" onchange="toggleOtherShift()">
               <option value="">Select your shift</option>
               <option value="Early Shift">Early Shift</option>
               <option value="Late Shift">Late Shift</option>
               <option value="Night Shift">Night Shift</option>
+              <option value="Other">Other</option>
             </select>
+            <input type="text" id="shift-other" placeholder="Enter your shift / department" maxlength="40" style="display:none; margin-top:8px;">
           </div>
 
           <div class="form-group">
@@ -330,8 +332,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const savedName = localStorage.getItem('dby8_name');
   const savedShift = localStorage.getItem('dby8_shift');
+  const savedShiftType = localStorage.getItem('dby8_shift_type');
   if (savedName) document.getElementById('name').value = savedName;
-  if (savedShift) document.getElementById('shift').value = savedShift;
+  if (savedShiftType) {
+    document.getElementById('shift').value = savedShiftType;
+    if (savedShiftType === 'Other' && savedShift) {
+      document.getElementById('shift-other').style.display = 'block';
+      document.getElementById('shift-other').value = savedShift;
+    }
+  } else if (savedShift) {
+    document.getElementById('shift').value = savedShift;
+  }
   loadTodaysMatch();
 });
 
@@ -340,6 +351,19 @@ function selectPick(btn) {
   document.querySelectorAll('.pick-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   selectedPick = btn.getAttribute('data-pick');
+}
+
+// ============ OTHER SHIFT TOGGLE ============
+function toggleOtherShift() {
+  const select = document.getElementById('shift');
+  const otherInput = document.getElementById('shift-other');
+  if (select.value === 'Other') {
+    otherInput.style.display = 'block';
+    otherInput.focus();
+  } else {
+    otherInput.style.display = 'none';
+    otherInput.value = '';
+  }
 }
 
 // ============ TAB NAVIGATION ============
@@ -454,7 +478,13 @@ function renderMatch(index) {
 // ============ SUBMIT PREDICTION ============
 async function submitPrediction() {
   const name = document.getElementById('name').value.trim();
-  const shift = document.getElementById('shift').value;
+  let shift = document.getElementById('shift').value;
+
+  // If "Other" is selected, use the custom input value
+  if (shift === 'Other') {
+    shift = document.getElementById('shift-other').value.trim();
+    if (!shift) return showMessage('Please enter your shift / department.', 'error');
+  }
 
   if (!name) return showMessage('Please enter your name.', 'error');
   if (!shift) return showMessage('Please select your shift.', 'error');
@@ -471,6 +501,7 @@ async function submitPrediction() {
 
   localStorage.setItem('dby8_name', name);
   localStorage.setItem('dby8_shift', shift);
+  localStorage.setItem('dby8_shift_type', document.getElementById('shift').value);
 
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
