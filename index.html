@@ -151,7 +151,7 @@
     }
 
     .team-block { flex: 1; text-align: center; }
-    .team-flag { font-size: 36px; display: block; margin-bottom: 6px; }
+    .team-flag { font-size: 36px; display: block; margin-bottom: 8px; min-height: 48px; }
     .team-name {
       font-size: 16px;
       font-weight: 700;
@@ -187,7 +187,7 @@
       gap: 8px;
       margin-bottom: 14px;
       overflow-x: auto;
-      padding-bottom: 4px;
+      padding: 4px 0;
       -webkit-overflow-scrolling: touch;
     }
 
@@ -279,7 +279,7 @@
       padding-right: 36px;
     }
 
-    .form-group select option { background: var(--green-dark); color: white; }
+    .form-group select option { background: var(--navy-deep); color: white; }
 
     .form-group input:focus, .form-group select:focus {
       outline: none;
@@ -484,7 +484,7 @@
         <div class="card" id="prediction-form">
           <div class="form-group">
             <label for="name">Your Name</label>
-            <input type="text" id="name" placeholder="e.g. Max Mustermann" autocomplete="name" maxlength="60">
+            <input type="text" id="name" placeholder="Enter your full name (as on badge)" autocomplete="name" maxlength="60">
           </div>
 
           <div class="form-group">
@@ -576,7 +576,19 @@ const COUNTRY_CODES = {
 function getFlag(team) {
   var code = COUNTRY_CODES[team];
   if (!code) return '';
-  return String.fromCodePoint(0x1F1E6 + code.charCodeAt(0) - 65, 0x1F1E6 + code.charCodeAt(1) - 65);
+  return '<img src="https://flagcdn.com/w40/' + code.toLowerCase() + '.png" alt="' + code + '" style="height:1.2em;vertical-align:middle;border-radius:2px;">';
+}
+
+function getFlagLarge(team) {
+  var code = COUNTRY_CODES[team];
+  if (!code) return '';
+  return '<img src="https://flagcdn.com/w80/' + code.toLowerCase() + '.png" alt="' + code + '" style="height:48px;border-radius:4px;">';
+}
+
+function getFlagText(team) {
+  var code = COUNTRY_CODES[team];
+  if (!code) return '';
+  return '<img src="https://flagcdn.com/w40/' + code.toLowerCase() + '.png" alt="' + code + '" style="height:1em;vertical-align:middle;border-radius:2px;margin-right:4px;">';
 }
 
 // ============ STATE ============
@@ -674,7 +686,7 @@ function renderMatchSelector() {
   currentMatches.forEach((match, idx) => {
     const tab = document.createElement('button');
     tab.className = 'match-tab' + (idx === 0 ? ' active' : '');
-    tab.textContent = getFlag(match.teamA) + ' ' + match.teamA + ' vs ' + match.teamB + ' ' + getFlag(match.teamB);
+    tab.innerHTML = getFlagText(match.teamA) + ' ' + escapeHtml(match.teamA) + ' vs ' + escapeHtml(match.teamB) + ' ' + getFlagText(match.teamB);
     tab.onclick = () => {
       document.querySelectorAll('.match-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active'); renderMatch(idx);
@@ -692,15 +704,15 @@ function renderMatch(index) {
   document.getElementById('match-display').innerHTML =
     '<div class="match-round">' + escapeHtml(match.round || 'Group Stage') + '</div>' +
     '<div class="match-teams">' +
-      '<div class="team-block"><span class="team-flag">' + getFlag(match.teamA) + '</span><span class="team-name">' + escapeHtml(match.teamA) + '</span></div>' +
+      '<div class="team-block"><span class="team-flag">' + getFlagLarge(match.teamA) + '</span><span class="team-name">' + escapeHtml(match.teamA) + '</span></div>' +
       '<div class="vs-badge">VS</div>' +
-      '<div class="team-block"><span class="team-flag">' + getFlag(match.teamB) + '</span><span class="team-name">' + escapeHtml(match.teamB) + '</span></div>' +
+      '<div class="team-block"><span class="team-flag">' + getFlagLarge(match.teamB) + '</span><span class="team-name">' + escapeHtml(match.teamB) + '</span></div>' +
     '</div>' +
     '<div class="match-date">' + formatDate(match.date) + '</div>';
 
-  document.querySelector('[data-pick="teamA"] .pick-icon').textContent = getFlag(match.teamA);
+  document.querySelector('[data-pick="teamA"] .pick-icon').innerHTML = getFlagText(match.teamA);
   document.getElementById('pick-team-a').textContent = match.teamA;
-  document.querySelector('[data-pick="teamB"] .pick-icon').textContent = getFlag(match.teamB);
+  document.querySelector('[data-pick="teamB"] .pick-icon').innerHTML = getFlagText(match.teamB);
   document.getElementById('pick-team-b').textContent = match.teamB;
 
   const btn = document.getElementById('submit-btn');
@@ -787,9 +799,14 @@ async function loadLeaderboard() {
 async function drawWinners() {
   const btn = document.getElementById('draw-btn');
   const area = document.getElementById('winners-area');
+
+  // Prompt for admin password
+  const adminKey = prompt('Enter admin password:');
+  if (!adminKey) return;
+
   btn.disabled = true; btn.textContent = 'Drawing...';
   try {
-    const data = await apiGet('drawWinners');
+    const data = await apiGet('drawWinners&key=' + encodeURIComponent(adminKey));
     if (data.winners) {
       let html = '';
       [['Night Shift','🌙',5],['Late Shift','🌆',2],['Early Shift','🌅',3]].forEach(([shift, emoji, count]) => {
