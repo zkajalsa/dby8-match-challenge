@@ -3,196 +3,450 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>DBY8 Bayreuth — Match Challenge</title>
+  <title>DBY8 Bayreuth — Match Challenge 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #232F3E;
-      --accent: #FF9900;
-      --accent-hover: #E88B00;
-      --bg: #F5F7FA;
-      --card: #FFFFFF;
-      --text: #1A1A2E;
-      --text-light: #6B7280;
-      --border: #E5E7EB;
-      --success: #059669;
-      --error: #DC2626;
-      --radius: 12px;
+      --green-dark: #0B3D2E;
+      --green-mid: #14532D;
+      --green-light: #166534;
+      --green-pitch: #22C55E;
+      --gold: #FACC15;
+      --gold-dark: #CA8A04;
+      --white: #FFFFFF;
+      --off-white: #F0FDF4;
+      --text: #FFFFFF;
+      --text-dark: #0F172A;
+      --text-muted: #86EFAC;
+      --card-bg: rgba(255,255,255,0.08);
+      --card-border: rgba(255,255,255,0.12);
+      --error: #FCA5A5;
+      --error-bg: rgba(239,68,68,0.15);
+      --success-bg: rgba(34,197,94,0.2);
+      --radius: 16px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--green-dark);
       color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      background-image:
+        radial-gradient(ellipse at 50% 0%, rgba(34,197,94,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(250,204,21,0.08) 0%, transparent 50%);
     }
 
+    /* Header */
     .header {
-      background: var(--primary);
       width: 100%;
-      padding: 20px 16px;
+      padding: 24px 16px 20px;
       text-align: center;
-      color: white;
       position: sticky;
       top: 0;
       z-index: 10;
+      background: linear-gradient(180deg, var(--green-dark) 60%, transparent);
     }
 
-    .header h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
+    .header-logo { font-size: 36px; margin-bottom: 4px; }
+
+    .header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
     .header .subtitle {
-      font-size: 12px; color: var(--accent); margin-top: 4px;
-      font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+      font-size: 11px;
+      color: var(--gold);
+      margin-top: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
     }
 
-    .container { width: 100%; max-width: 440px; padding: 16px; flex: 1; }
+    .header .site-badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
 
+    .container { width: 100%; max-width: 460px; padding: 0 16px 16px; flex: 1; }
+
+    /* Cards */
     .card {
-      background: var(--card); border-radius: var(--radius);
-      padding: 24px 20px; margin-bottom: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid var(--border);
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      margin-bottom: 14px;
+      border: 1px solid var(--card-border);
     }
 
-    .match-card { text-align: center; }
+    /* Match Card */
+    .match-card {
+      text-align: center;
+      background: linear-gradient(135deg, var(--green-mid), var(--green-light));
+      border: 1px solid rgba(34,197,94,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .match-card::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      border: 2px solid rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+
     .match-round {
-      font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
-      color: var(--text-light); font-weight: 600; margin-bottom: 16px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 18px;
+      position: relative;
     }
+
     .match-teams {
-      display: flex; align-items: center; justify-content: center;
-      gap: 16px; margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      position: relative;
     }
-    .team-name { font-size: 20px; font-weight: 700; flex: 1; }
-    .team-name:first-child { text-align: right; }
-    .team-name:last-child { text-align: left; }
-    .vs {
-      font-size: 13px; color: var(--text-light); font-weight: 600;
-      background: var(--bg); width: 36px; height: 36px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .match-date { font-size: 12px; color: var(--text-light); margin-top: 8px; }
 
+    .team-block { flex: 1; text-align: center; }
+    .team-flag { font-size: 36px; display: block; margin-bottom: 6px; }
+    .team-name {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .vs-badge {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold);
+      background: rgba(0,0,0,0.3);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 2px solid rgba(250,204,21,0.3);
+    }
+
+    .match-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    /* Match Selector */
     .match-selector {
-      display: flex; gap: 8px; margin-bottom: 16px;
-      overflow-x: auto; padding-bottom: 4px;
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
     }
-    .match-tab {
-      padding: 8px 14px; border-radius: 20px; border: 1.5px solid var(--border);
-      background: white; font-size: 12px; font-weight: 600; cursor: pointer;
-      white-space: nowrap; transition: all 0.2s; color: var(--text);
-    }
-    .match-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
 
+    .match-selector::-webkit-scrollbar { display: none; }
+
+    .match-tab {
+      padding: 8px 14px;
+      border-radius: 20px;
+      border: 1.5px solid var(--card-border);
+      background: var(--card-bg);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      color: var(--text-muted);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .match-tab.active {
+      background: var(--gold);
+      color: var(--green-dark);
+      border-color: var(--gold);
+    }
+
+    /* Nav Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 14px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+
+    .nav-tab {
+      flex: 1;
+      padding: 13px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      transition: all 0.2s;
+      font-family: 'Outfit', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-tab.active {
+      background: var(--green-light);
+      color: var(--white);
+    }
+
+    /* Form */
     .form-group { margin-bottom: 16px; }
     .form-group label {
-      display: block; font-size: 13px; font-weight: 600;
-      color: var(--text); margin-bottom: 6px;
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
+
     .form-group input, .form-group select {
-      width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
-      border-radius: 8px; font-size: 15px; color: var(--text); background: white;
-      transition: border-color 0.2s; -webkit-appearance: none; appearance: none;
+      width: 100%;
+      padding: 13px 14px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 10px;
+      font-size: 15px;
+      color: var(--white);
+      background: rgba(255,255,255,0.06);
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+      font-family: 'Outfit', sans-serif;
     }
+
+    .form-group input::placeholder { color: rgba(255,255,255,0.3); }
+
     .form-group select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2386EFAC' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
     }
-    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
 
-    /* Winner pick buttons */
+    .form-group select option { background: var(--green-dark); color: white; }
+
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--green-pitch);
+    }
+
+    /* Pick Buttons */
     .pick-group { display: flex; flex-direction: column; gap: 10px; }
+
     .pick-btn {
-      padding: 14px 16px; border: 2px solid var(--border); border-radius: 10px;
-      background: white; font-size: 15px; font-weight: 600; cursor: pointer;
-      transition: all 0.2s; color: var(--text); text-align: center;
+      padding: 16px;
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--white);
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-    .pick-btn:hover { border-color: var(--accent); background: #FFF8EE; }
+
+    .pick-btn:hover {
+      border-color: var(--green-pitch);
+      background: rgba(34,197,94,0.1);
+    }
+
     .pick-btn.selected {
-      border-color: var(--accent); background: #FFF3E0;
-      color: var(--primary); box-shadow: 0 0 0 1px var(--accent);
+      border-color: var(--gold);
+      background: rgba(250,204,21,0.12);
+      color: var(--gold);
+      box-shadow: 0 0 20px rgba(250,204,21,0.1);
     }
-    .pick-btn .pick-icon { margin-right: 6px; }
 
+    .pick-btn .pick-icon { font-size: 22px; }
+
+    /* Buttons */
     .btn {
-      width: 100%; padding: 14px; border: none; border-radius: 8px;
-      font-size: 15px; font-weight: 700; cursor: pointer;
-      transition: all 0.2s; letter-spacing: 0.3px;
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-family: 'Outfit', sans-serif;
     }
-    .btn-primary { background: var(--accent); color: var(--primary); }
-    .btn-primary:hover { background: var(--accent-hover); }
-    .btn-primary:disabled { background: #D1D5DB; color: #9CA3AF; cursor: not-allowed; }
 
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--green-dark);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 4px 20px rgba(250,204,21,0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.3);
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    /* Messages */
     .message {
-      padding: 12px 16px; border-radius: 8px; font-size: 14px;
-      font-weight: 500; margin-bottom: 16px; text-align: center;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      text-align: center;
     }
-    .message.success { background: #ECFDF5; color: var(--success); border: 1px solid #A7F3D0; }
-    .message.error { background: #FEF2F2; color: var(--error); border: 1px solid #FECACA; }
-    .message.info { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
 
-    .no-match { text-align: center; padding: 32px 16px; }
-    .no-match .icon { font-size: 48px; margin-bottom: 12px; }
-    .no-match h3 { font-size: 16px; margin-bottom: 8px; }
-    .no-match p { font-size: 13px; color: var(--text-light); line-height: 1.5; }
+    .message.success {
+      background: var(--success-bg);
+      color: var(--green-pitch);
+      border: 1px solid rgba(34,197,94,0.3);
+    }
 
-    .loading { text-align: center; padding: 40px; color: var(--text-light); }
+    .message.error {
+      background: var(--error-bg);
+      color: var(--error);
+      border: 1px solid rgba(239,68,68,0.3);
+    }
+
+    .message.info {
+      background: rgba(59,130,246,0.15);
+      color: #93C5FD;
+      border: 1px solid rgba(59,130,246,0.3);
+    }
+
+    /* No Match */
+    .no-match { text-align: center; padding: 40px 16px; }
+    .no-match .icon { font-size: 56px; margin-bottom: 16px; }
+    .no-match h3 { font-size: 18px; margin-bottom: 8px; font-weight: 700; }
+    .no-match p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* Loading */
+    .loading { text-align: center; padding: 40px; color: var(--text-muted); }
     .spinner {
-      width: 32px; height: 32px; border: 3px solid var(--border);
-      border-top-color: var(--accent); border-radius: 50%;
-      animation: spin 0.8s linear infinite; margin: 0 auto 12px;
+      width: 36px; height: 36px;
+      border: 3px solid rgba(255,255,255,0.1);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* Admin */
     .admin-panel { display: none; }
     .admin-panel.visible { display: block; }
 
+    /* Leaderboard */
     .leaderboard-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .leaderboard-table th {
-      text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border);
-      font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-light);
+      text-align: left; padding: 8px 10px;
+      border-bottom: 1px solid var(--card-border);
+      font-size: 10px; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--text-muted); font-weight: 700;
     }
-    .leaderboard-table td { padding: 10px; border-bottom: 1px solid var(--border); }
+    .leaderboard-table td {
+      padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.8);
+    }
     .leaderboard-table tr:last-child td { border-bottom: none; }
+    .leaderboard-table tr:first-child td { color: var(--gold); font-weight: 700; }
 
+    /* Winners */
     .winner-section { margin-bottom: 20px; }
-    .winner-section h4 { font-size: 14px; margin-bottom: 8px; color: var(--primary); }
+    .winner-section h4 { font-size: 14px; margin-bottom: 10px; color: var(--text-muted); font-weight: 700; }
     .winner-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: #FEF3C7; color: #92400E; padding: 6px 12px;
-      border-radius: 20px; font-size: 13px; font-weight: 600; margin: 4px 4px 4px 0;
+      background: rgba(250,204,21,0.12); color: var(--gold);
+      padding: 8px 14px; border-radius: 20px; font-size: 13px;
+      font-weight: 700; margin: 4px 4px 4px 0;
+      border: 1px solid rgba(250,204,21,0.2);
     }
 
-    .footer { text-align: center; padding: 16px; font-size: 11px; color: var(--text-light); }
+    /* Footer */
+    .footer {
+      text-align: center; padding: 20px 16px;
+      font-size: 10px; color: rgba(255,255,255,0.2);
+      letter-spacing: 0.5px;
+    }
 
-    .nav-tabs {
-      display: flex; gap: 0; margin-bottom: 16px; background: var(--card);
-      border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
-    }
-    .nav-tab {
-      flex: 1; padding: 12px; text-align: center; font-size: 13px; font-weight: 600;
-      cursor: pointer; border: none; background: transparent;
-      color: var(--text-light); transition: all 0.2s;
-    }
-    .nav-tab.active { background: var(--primary); color: white; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+
+    .section-title {
+      font-size: 15px; font-weight: 700; margin-bottom: 14px;
+      color: var(--white);
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <h1>DBY8 Bayreuth</h1>
-    <div class="subtitle">⚽ Match Challenge 2026</div>
+    <div class="header-logo">⚽</div>
+    <h1>Match Challenge</h1>
+    <div class="subtitle">FIFA World Cup 2026</div>
+    <div class="site-badge">DBY8 BAYREUTH</div>
   </div>
 
   <div class="container">
     <div class="nav-tabs">
-      <button class="nav-tab active" onclick="switchTab('predict')" id="tab-predict">Predict</button>
-      <button class="nav-tab" onclick="switchTab('standings')" id="tab-standings">Standings</button>
-      <button class="nav-tab admin-panel" onclick="switchTab('admin')" id="tab-admin">Admin</button>
+      <button class="nav-tab active" onclick="switchTab('predict')" id="tab-predict">⚽ Predict</button>
+      <button class="nav-tab" onclick="switchTab('standings')" id="tab-standings">🏆 Standings</button>
+      <button class="nav-tab admin-panel" onclick="switchTab('admin')" id="tab-admin">⚙️ Admin</button>
     </div>
 
     <div id="message-area"></div>
@@ -205,7 +459,7 @@
       </div>
 
       <div id="no-match" class="card no-match" style="display:none;">
-        <div class="icon">📅</div>
+        <div class="icon">🏟️</div>
         <h3>No Match Today</h3>
         <p id="next-match-info">Check back on match day!</p>
       </div>
@@ -214,7 +468,6 @@
         <div id="match-selector" class="match-selector" style="display:none;"></div>
         <div class="card match-card" id="match-display"></div>
 
-        <!-- Prediction form -->
         <div class="card" id="prediction-form">
           <div class="form-group">
             <label for="name">Your Name</label>
@@ -258,7 +511,7 @@
     <!-- STANDINGS TAB -->
     <div class="tab-content" id="content-standings">
       <div class="card">
-        <h3 style="font-size:15px; margin-bottom:12px;">Leaderboard</h3>
+        <div class="section-title">🏆 Leaderboard</div>
         <div id="leaderboard-loading" class="loading">
           <div class="spinner"></div>
           <p>Loading standings...</p>
@@ -270,8 +523,8 @@
     <!-- ADMIN TAB -->
     <div class="tab-content admin-panel" id="content-admin">
       <div class="card">
-        <h3 style="font-size:15px; margin-bottom:12px;">Draw Winners</h3>
-        <p style="font-size:13px; color:var(--text-light); margin-bottom:16px;">
+        <div class="section-title">🎲 Draw Winners</div>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
           Randomly selects winners from top scorers per shift:<br>
           Night Shift: 5 · Late Shift: 2 · Early Shift: 3
         </p>
@@ -282,7 +535,7 @@
   </div>
 
   <div class="footer">
-    DBY8 Bayreuth · FIFA World Cup 2026 · Engagement Activity
+    DBY8 BAYREUTH · FIFA WORLD CUP 2026 · ENGAGEMENT ACTIVITY
   </div>
 
 <script>
@@ -290,7 +543,6 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbwM-OD3NTjKqiYEoH1pmgrtlCLGNXawA3mD-ZnsmjqUJalqGUlaX-uhgqJETm9AAcuy/exec';
 
 // ============ COUNTRY FLAGS ============
-// Using country codes to generate flag emojis programmatically (avoids encoding issues)
 const COUNTRY_CODES = {
   'Mexico':'MX','South Africa':'ZA','South Korea':'KR','Czechia':'CZ',
   'Czech Republic':'CZ','Canada':'CA','Bosnia and Herzegovina':'BA',
@@ -311,11 +563,7 @@ const COUNTRY_CODES = {
 function getFlag(team) {
   var code = COUNTRY_CODES[team];
   if (!code) return '';
-  // Convert country code to flag emoji using regional indicator symbols
-  return String.fromCodePoint(
-    0x1F1E6 + code.charCodeAt(0) - 65,
-    0x1F1E6 + code.charCodeAt(1) - 65
-  );
+  return String.fromCodePoint(0x1F1E6 + code.charCodeAt(0) - 65, 0x1F1E6 + code.charCodeAt(1) - 65);
 }
 
 // ============ STATE ============
@@ -327,9 +575,7 @@ let isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true
 
 // ============ INIT ============
 document.addEventListener('DOMContentLoaded', () => {
-  if (isAdmin) {
-    document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('visible'));
-  }
+  if (isAdmin) document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('visible'));
   const savedName = localStorage.getItem('dby8_name');
   const savedShift = localStorage.getItem('dby8_shift');
   const savedShiftType = localStorage.getItem('dby8_shift_type');
@@ -346,24 +592,18 @@ document.addEventListener('DOMContentLoaded', () => {
   loadTodaysMatch();
 });
 
-// ============ PICK SELECTION ============
+// ============ PICK / SHIFT ============
 function selectPick(btn) {
   document.querySelectorAll('.pick-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   selectedPick = btn.getAttribute('data-pick');
 }
 
-// ============ OTHER SHIFT TOGGLE ============
 function toggleOtherShift() {
   const select = document.getElementById('shift');
   const otherInput = document.getElementById('shift-other');
-  if (select.value === 'Other') {
-    otherInput.style.display = 'block';
-    otherInput.focus();
-  } else {
-    otherInput.style.display = 'none';
-    otherInput.value = '';
-  }
+  if (select.value === 'Other') { otherInput.style.display = 'block'; otherInput.focus(); }
+  else { otherInput.style.display = 'none'; otherInput.value = ''; }
 }
 
 // ============ TAB NAVIGATION ============
@@ -375,7 +615,7 @@ function switchTab(tab) {
   if (tab === 'standings') loadLeaderboard();
 }
 
-// ============ API CALLS ============
+// ============ API ============
 async function apiGet(action) {
   const response = await fetch(API_URL + '?action=' + action);
   return response.json();
@@ -384,15 +624,10 @@ async function apiGet(action) {
 async function apiPostCors(action, data) {
   try {
     const response = await fetch(API_URL + '?action=' + action, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      redirect: 'follow'
+      method: 'POST', body: JSON.stringify(data), redirect: 'follow'
     });
     return response.json();
-  } catch (err) {
-    console.error('API Error:', err);
-    return { error: 'Network error. Please try again.' };
-  }
+  } catch (err) { return { error: 'Network error. Please try again.' }; }
 }
 
 // ============ LOAD MATCH ============
@@ -400,15 +635,11 @@ async function loadTodaysMatch() {
   const loading = document.getElementById('loading');
   const noMatch = document.getElementById('no-match');
   const matchArea = document.getElementById('match-area');
-
-  loading.style.display = 'block';
-  noMatch.style.display = 'none';
-  matchArea.style.display = 'none';
+  loading.style.display = 'block'; noMatch.style.display = 'none'; matchArea.style.display = 'none';
 
   try {
     const data = await apiGet('getMatch');
     loading.style.display = 'none';
-
     if (data.matches && data.matches.length > 0) {
       currentMatches = data.matches;
       matchArea.style.display = 'block';
@@ -426,16 +657,14 @@ async function loadTodaysMatch() {
 
 function renderMatchSelector() {
   const container = document.getElementById('match-selector');
-  container.style.display = 'flex';
-  container.innerHTML = '';
+  container.style.display = 'flex'; container.innerHTML = '';
   currentMatches.forEach((match, idx) => {
     const tab = document.createElement('button');
     tab.className = 'match-tab' + (idx === 0 ? ' active' : '');
     tab.textContent = getFlag(match.teamA) + ' ' + match.teamA + ' vs ' + match.teamB + ' ' + getFlag(match.teamB);
     tab.onclick = () => {
       document.querySelectorAll('.match-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      renderMatch(idx);
+      tab.classList.add('active'); renderMatch(idx);
     };
     container.appendChild(tab);
   });
@@ -445,47 +674,39 @@ function renderMatch(index) {
   selectedMatchIndex = index;
   selectedPick = '';
   document.querySelectorAll('.pick-btn').forEach(b => b.classList.remove('selected'));
-
   const match = currentMatches[index];
-  document.getElementById('match-display').innerHTML = `
-    <div class="match-round">${escapeHtml(match.round || 'Group Stage')}</div>
-    <div class="match-teams">
-      <span class="team-name">${getFlag(match.teamA)} ${escapeHtml(match.teamA)}</span>
-      <span class="vs">VS</span>
-      <span class="team-name">${escapeHtml(match.teamB)} ${getFlag(match.teamB)}</span>
-    </div>
-    <div class="match-date">${formatDate(match.date)}</div>
-  `;
 
-  // Update pick button labels with flags
+  document.getElementById('match-display').innerHTML =
+    '<div class="match-round">' + escapeHtml(match.round || 'Group Stage') + '</div>' +
+    '<div class="match-teams">' +
+      '<div class="team-block"><span class="team-flag">' + getFlag(match.teamA) + '</span><span class="team-name">' + escapeHtml(match.teamA) + '</span></div>' +
+      '<div class="vs-badge">VS</div>' +
+      '<div class="team-block"><span class="team-flag">' + getFlag(match.teamB) + '</span><span class="team-name">' + escapeHtml(match.teamB) + '</span></div>' +
+    '</div>' +
+    '<div class="match-date">' + formatDate(match.date) + '</div>';
+
   document.querySelector('[data-pick="teamA"] .pick-icon').textContent = getFlag(match.teamA);
   document.getElementById('pick-team-a').textContent = match.teamA;
   document.querySelector('[data-pick="teamB"] .pick-icon').textContent = getFlag(match.teamB);
   document.getElementById('pick-team-b').textContent = match.teamB;
 
-  // Re-enable submit (unless already submitted for this match)
   const btn = document.getElementById('submit-btn');
   const matchKey = match.date + '|' + match.teamA + ' vs ' + match.teamB;
   if (submittedMatches.indexOf(matchKey) !== -1) {
-    btn.disabled = true;
-    btn.textContent = 'Already Submitted ✓';
+    btn.disabled = true; btn.textContent = 'Already Submitted ✓';
   } else {
-    btn.disabled = false;
-    btn.textContent = 'Submit Prediction';
+    btn.disabled = false; btn.textContent = 'Submit Prediction';
   }
 }
 
-// ============ SUBMIT PREDICTION ============
+// ============ SUBMIT ============
 async function submitPrediction() {
   const name = document.getElementById('name').value.trim();
   let shift = document.getElementById('shift').value;
-
-  // If "Other" is selected, use the custom input value
   if (shift === 'Other') {
     shift = document.getElementById('shift-other').value.trim();
     if (!shift) return showMessage('Please enter your shift / department.', 'error');
   }
-
   if (!name) return showMessage('Please enter your name.', 'error');
   if (!shift) return showMessage('Please select your shift.', 'error');
   if (!selectedPick) return showMessage('Please pick a winner.', 'error');
@@ -493,8 +714,6 @@ async function submitPrediction() {
 
   const match = currentMatches[selectedMatchIndex];
   const matchLabel = match.teamA + ' vs ' + match.teamB;
-
-  // Resolve pick to a readable label
   let pickLabel = 'Draw';
   if (selectedPick === 'teamA') pickLabel = match.teamA;
   if (selectedPick === 'teamB') pickLabel = match.teamB;
@@ -504,37 +723,25 @@ async function submitPrediction() {
   localStorage.setItem('dby8_shift_type', document.getElementById('shift').value);
 
   const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  btn.textContent = 'Submitting...';
+  btn.disabled = true; btn.textContent = 'Submitting...';
 
   try {
     const result = await apiPostCors('submitPrediction', {
-      name: name,
-      shift: shift,
-      matchDate: match.date,
-      match: matchLabel,
-      pick: pickLabel
+      name: name, shift: shift, matchDate: match.date, match: matchLabel, pick: pickLabel
     });
-
     if (result && result.success) {
       showMessage('✓ Prediction submitted! ' + name + ' picked: ' + pickLabel, 'success');
       btn.textContent = 'Submitted ✓';
-      // Track this match as submitted
       const matchKey = match.date + '|' + matchLabel;
       submittedMatches.push(matchKey);
       localStorage.setItem('dby8_submitted', JSON.stringify(submittedMatches));
     } else if (result && result.error) {
-      showMessage(result.error, 'error');
-      btn.disabled = false;
-      btn.textContent = 'Submit Prediction';
+      showMessage(result.error, 'error'); btn.disabled = false; btn.textContent = 'Submit Prediction';
     } else {
-      showMessage('Prediction sent! If this is a duplicate, it will be rejected.', 'info');
-      btn.textContent = 'Submitted';
+      showMessage('Prediction sent!', 'info'); btn.textContent = 'Submitted';
     }
   } catch (err) {
-    showMessage('Network error. Please check your connection and try again.', 'error');
-    btn.disabled = false;
-    btn.textContent = 'Submit Prediction';
+    showMessage('Network error. Please try again.', 'error'); btn.disabled = false; btn.textContent = 'Submit Prediction';
   }
 }
 
@@ -542,84 +749,61 @@ async function submitPrediction() {
 async function loadLeaderboard() {
   const loading = document.getElementById('leaderboard-loading');
   const content = document.getElementById('leaderboard-content');
-  loading.style.display = 'block';
-  content.style.display = 'none';
-
+  loading.style.display = 'block'; content.style.display = 'none';
   try {
     const data = await apiGet('getLeaderboard');
-    loading.style.display = 'none';
-    content.style.display = 'block';
-
+    loading.style.display = 'none'; content.style.display = 'block';
     if (!data.leaderboard || data.leaderboard.length === 0) {
-      content.innerHTML = '<p style="text-align:center; color:var(--text-light); font-size:14px; padding:20px;">No predictions yet. Be the first!</p>';
+      content.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:14px; padding:20px;">No predictions yet. Be the first!</p>';
       return;
     }
-
     let html = '<table class="leaderboard-table"><thead><tr><th>#</th><th>Name</th><th>Shift</th><th>Pts</th><th>Played</th></tr></thead><tbody>';
     data.leaderboard.forEach((entry, idx) => {
-      html += '<tr><td>' + (idx+1) + '</td><td>' + escapeHtml(entry.name) + '</td><td style="font-size:11px;">' + escapeHtml(entry.shift) + '</td><td><strong>' + entry.points + '</strong></td><td>' + entry.predictions + '</td></tr>';
+      const medal = idx === 0 ? '🥇 ' : idx === 1 ? '🥈 ' : idx === 2 ? '🥉 ' : '';
+      html += '<tr><td>' + medal + (idx+1) + '</td><td>' + escapeHtml(entry.name) + '</td><td style="font-size:11px;">' + escapeHtml(entry.shift) + '</td><td><strong>' + entry.points + '</strong></td><td>' + entry.predictions + '</td></tr>';
     });
     html += '</tbody></table>';
     content.innerHTML = html;
   } catch (err) {
-    loading.style.display = 'none';
-    content.style.display = 'block';
+    loading.style.display = 'none'; content.style.display = 'block';
     content.innerHTML = '<p style="color:var(--error); text-align:center;">Could not load standings.</p>';
   }
 }
 
-// ============ DRAW WINNERS (Admin) ============
+// ============ DRAW WINNERS ============
 async function drawWinners() {
   const btn = document.getElementById('draw-btn');
   const area = document.getElementById('winners-area');
-  btn.disabled = true;
-  btn.textContent = 'Drawing...';
-
+  btn.disabled = true; btn.textContent = 'Drawing...';
   try {
     const data = await apiGet('drawWinners');
     if (data.winners) {
       let html = '';
-      const shifts = [
-        ['Night Shift', '🌙', 5],
-        ['Late Shift', '🌆', 2],
-        ['Early Shift', '🌅', 3]
-      ];
-      shifts.forEach(([shift, emoji, count]) => {
+      [['Night Shift','🌙',5],['Late Shift','🌆',2],['Early Shift','🌅',3]].forEach(([shift, emoji, count]) => {
         const winners = data.winners[shift] || [];
         html += '<div class="winner-section"><h4>' + emoji + ' ' + shift + ' (' + winners.length + '/' + count + ')</h4>';
-        if (winners.length === 0) {
-          html += '<p style="font-size:13px; color:var(--text-light);">No participants in this shift.</p>';
-        } else {
-          winners.forEach(w => {
-            html += '<span class="winner-badge">🏆 ' + escapeHtml(w.name) + ' · ' + w.points + ' pts</span>';
-          });
-        }
+        if (winners.length === 0) html += '<p style="font-size:13px; color:var(--text-muted);">No participants.</p>';
+        else winners.forEach(w => { html += '<span class="winner-badge">🏆 ' + escapeHtml(w.name) + ' · ' + w.points + ' pts</span>'; });
         html += '</div>';
       });
       area.innerHTML = html;
-    } else if (data.error) {
-      area.innerHTML = '<p style="color:var(--error);">' + escapeHtml(data.error) + '</p>';
-    }
-  } catch (err) {
-    area.innerHTML = '<p style="color:var(--error);">Could not draw winners. Try again.</p>';
-  }
-  btn.disabled = false;
-  btn.textContent = 'Draw Winners';
+    } else if (data.error) area.innerHTML = '<p style="color:var(--error);">' + escapeHtml(data.error) + '</p>';
+  } catch (err) { area.innerHTML = '<p style="color:var(--error);">Could not draw winners.</p>'; }
+  btn.disabled = false; btn.textContent = 'Draw Winners';
 }
 
 // ============ UTILITIES ============
 function showMessage(text, type) {
   const area = document.getElementById('message-area');
   area.innerHTML = '<div class="message ' + type + '">' + escapeHtml(text) + '</div>';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  area.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  window.scrollTo(0, 0); document.body.scrollTop = 0; document.documentElement.scrollTop = 0;
   setTimeout(() => { area.innerHTML = ''; }, 6000);
 }
 
 function escapeHtml(str) {
   if (!str) return '';
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
+  const div = document.createElement('div'); div.textContent = str; return div.innerHTML;
 }
 
 function formatDate(dateStr) {
