@@ -42,378 +42,141 @@
       z-index: 10;
     }
 
-    .header h1 {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
+    .header h1 { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
     .header .subtitle {
-      font-size: 12px;
-      color: var(--accent);
-      margin-top: 4px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      font-size: 12px; color: var(--accent); margin-top: 4px;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 440px;
-      padding: 16px;
-      flex: 1;
-    }
+    .container { width: 100%; max-width: 440px; padding: 16px; flex: 1; }
 
     .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 24px 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-      border: 1px solid var(--border);
+      background: var(--card); border-radius: var(--radius);
+      padding: 24px 20px; margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid var(--border);
     }
 
-    .match-card {
-      text-align: center;
-      position: relative;
-    }
-
+    .match-card { text-align: center; }
     .match-round {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--text-light);
-      font-weight: 600;
-      margin-bottom: 16px;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--text-light); font-weight: 600; margin-bottom: 16px;
     }
-
     .match-teams {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 8px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; margin-bottom: 8px;
     }
-
-    .team-name {
-      font-size: 20px;
-      font-weight: 700;
-      flex: 1;
-    }
-
+    .team-name { font-size: 20px; font-weight: 700; flex: 1; }
     .team-name:first-child { text-align: right; }
     .team-name:last-child { text-align: left; }
-
     .vs {
-      font-size: 13px;
-      color: var(--text-light);
-      font-weight: 600;
-      background: var(--bg);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      font-size: 13px; color: var(--text-light); font-weight: 600;
+      background: var(--bg); width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-
-    .match-date {
-      font-size: 12px;
-      color: var(--text-light);
-      margin-top: 8px;
-    }
+    .match-date { font-size: 12px; color: var(--text-light); margin-top: 8px; }
 
     .match-selector {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-      overflow-x: auto;
-      padding-bottom: 4px;
+      display: flex; gap: 8px; margin-bottom: 16px;
+      overflow-x: auto; padding-bottom: 4px;
     }
-
     .match-tab {
-      padding: 8px 14px;
-      border-radius: 20px;
-      border: 1.5px solid var(--border);
-      background: white;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
-      color: var(--text);
+      padding: 8px 14px; border-radius: 20px; border: 1.5px solid var(--border);
+      background: white; font-size: 12px; font-weight: 600; cursor: pointer;
+      white-space: nowrap; transition: all 0.2s; color: var(--text);
     }
+    .match-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-    .match-tab.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
+    .form-group { margin-bottom: 16px; }
     .form-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 6px;
+      display: block; font-size: 13px; font-weight: 600;
+      color: var(--text); margin-bottom: 6px;
     }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-size: 15px;
-      color: var(--text);
-      background: white;
-      transition: border-color 0.2s;
-      -webkit-appearance: none;
-      appearance: none;
+    .form-group input, .form-group select {
+      width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: 15px; color: var(--text); background: white;
+      transition: border-color 0.2s; -webkit-appearance: none; appearance: none;
     }
-
     .form-group select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
     }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
 
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: var(--accent);
+    /* Winner pick buttons */
+    .pick-group { display: flex; flex-direction: column; gap: 10px; }
+    .pick-btn {
+      padding: 14px 16px; border: 2px solid var(--border); border-radius: 10px;
+      background: white; font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s; color: var(--text); text-align: center;
     }
-
-    .score-input-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .pick-btn:hover { border-color: var(--accent); background: #FFF8EE; }
+    .pick-btn.selected {
+      border-color: var(--accent); background: #FFF3E0;
+      color: var(--primary); box-shadow: 0 0 0 1px var(--accent);
     }
-
-    .score-input-row .team-label {
-      font-size: 14px;
-      font-weight: 600;
-      flex: 1;
-      text-align: center;
-    }
-
-    .score-input-row input[type="number"] {
-      width: 64px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: 700;
-      padding: 10px 8px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      -moz-appearance: textfield;
-    }
-
-    .score-input-row input[type="number"]::-webkit-outer-spin-button,
-    .score-input-row input[type="number"]::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    .score-separator {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-light);
-    }
+    .pick-btn .pick-icon { margin-right: 6px; }
 
     .btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      letter-spacing: 0.3px;
+      width: 100%; padding: 14px; border: none; border-radius: 8px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: all 0.2s; letter-spacing: 0.3px;
     }
-
-    .btn-primary {
-      background: var(--accent);
-      color: var(--primary);
-    }
-
+    .btn-primary { background: var(--accent); color: var(--primary); }
     .btn-primary:hover { background: var(--accent-hover); }
-    .btn-primary:disabled {
-      background: #D1D5DB;
-      color: #9CA3AF;
-      cursor: not-allowed;
-    }
-
-    .btn-secondary {
-      background: var(--primary);
-      color: white;
-      margin-top: 8px;
-    }
+    .btn-primary:disabled { background: #D1D5DB; color: #9CA3AF; cursor: not-allowed; }
 
     .message {
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 16px;
-      text-align: center;
+      padding: 12px 16px; border-radius: 8px; font-size: 14px;
+      font-weight: 500; margin-bottom: 16px; text-align: center;
     }
+    .message.success { background: #ECFDF5; color: var(--success); border: 1px solid #A7F3D0; }
+    .message.error { background: #FEF2F2; color: var(--error); border: 1px solid #FECACA; }
+    .message.info { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
 
-    .message.success {
-      background: #ECFDF5;
-      color: var(--success);
-      border: 1px solid #A7F3D0;
-    }
+    .no-match { text-align: center; padding: 32px 16px; }
+    .no-match .icon { font-size: 48px; margin-bottom: 12px; }
+    .no-match h3 { font-size: 16px; margin-bottom: 8px; }
+    .no-match p { font-size: 13px; color: var(--text-light); line-height: 1.5; }
 
-    .message.error {
-      background: #FEF2F2;
-      color: var(--error);
-      border: 1px solid #FECACA;
-    }
-
-    .message.info {
-      background: #EFF6FF;
-      color: #1D4ED8;
-      border: 1px solid #BFDBFE;
-    }
-
-    .no-match {
-      text-align: center;
-      padding: 32px 16px;
-    }
-
-    .no-match .icon {
-      font-size: 48px;
-      margin-bottom: 12px;
-    }
-
-    .no-match h3 {
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    .no-match p {
-      font-size: 13px;
-      color: var(--text-light);
-      line-height: 1.5;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: var(--text-light);
-    }
-
+    .loading { text-align: center; padding: 40px; color: var(--text-light); }
     .spinner {
-      width: 32px;
-      height: 32px;
-      border: 3px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 12px;
+      width: 32px; height: 32px; border: 3px solid var(--border);
+      border-top-color: var(--accent); border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 12px;
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Admin Panel */
-    .admin-panel {
-      display: none;
-    }
+    .admin-panel { display: none; }
+    .admin-panel.visible { display: block; }
 
-    .admin-panel.visible {
-      display: block;
-    }
-
-    .leaderboard-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
+    .leaderboard-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .leaderboard-table th {
-      text-align: left;
-      padding: 8px 10px;
-      border-bottom: 2px solid var(--border);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-light);
+      text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border);
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-light);
     }
+    .leaderboard-table td { padding: 10px; border-bottom: 1px solid var(--border); }
+    .leaderboard-table tr:last-child td { border-bottom: none; }
 
-    .leaderboard-table td {
-      padding: 10px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .leaderboard-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .winner-section {
-      margin-bottom: 20px;
-    }
-
-    .winner-section h4 {
-      font-size: 14px;
-      margin-bottom: 8px;
-      color: var(--primary);
-    }
-
+    .winner-section { margin-bottom: 20px; }
+    .winner-section h4 { font-size: 14px; margin-bottom: 8px; color: var(--primary); }
     .winner-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #FEF3C7;
-      color: #92400E;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      margin: 4px 4px 4px 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #FEF3C7; color: #92400E; padding: 6px 12px;
+      border-radius: 20px; font-size: 13px; font-weight: 600; margin: 4px 4px 4px 0;
     }
 
-    .footer {
-      text-align: center;
-      padding: 16px;
-      font-size: 11px;
-      color: var(--text-light);
-    }
+    .footer { text-align: center; padding: 16px; font-size: 11px; color: var(--text-light); }
 
     .nav-tabs {
-      display: flex;
-      gap: 0;
-      margin-bottom: 16px;
-      background: var(--card);
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
+      display: flex; gap: 0; margin-bottom: 16px; background: var(--card);
+      border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
     }
-
     .nav-tab {
-      flex: 1;
-      padding: 12px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      color: var(--text-light);
-      transition: all 0.2s;
+      flex: 1; padding: 12px; text-align: center; font-size: 13px; font-weight: 600;
+      cursor: pointer; border: none; background: transparent;
+      color: var(--text-light); transition: all 0.2s;
     }
-
-    .nav-tab.active {
-      background: var(--primary);
-      color: white;
-    }
-
+    .nav-tab.active { background: var(--primary); color: white; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
   </style>
@@ -426,14 +189,12 @@
   </div>
 
   <div class="container">
-    <!-- Navigation -->
     <div class="nav-tabs">
       <button class="nav-tab active" onclick="switchTab('predict')" id="tab-predict">Predict</button>
       <button class="nav-tab" onclick="switchTab('standings')" id="tab-standings">Standings</button>
       <button class="nav-tab admin-panel" onclick="switchTab('admin')" id="tab-admin">Admin</button>
     </div>
 
-    <!-- Message area -->
     <div id="message-area"></div>
 
     <!-- PREDICT TAB -->
@@ -450,10 +211,7 @@
       </div>
 
       <div id="match-area" style="display:none;">
-        <!-- Match selector (if multiple matches) -->
         <div id="match-selector" class="match-selector" style="display:none;"></div>
-
-        <!-- Match display -->
         <div class="card match-card" id="match-display"></div>
 
         <!-- Prediction form -->
@@ -474,13 +232,17 @@
           </div>
 
           <div class="form-group">
-            <label>Your Score Prediction</label>
-            <div class="score-input-row">
-              <span class="team-label" id="label-team-a">Team A</span>
-              <input type="number" id="score-a" min="0" max="20" value="0" inputmode="numeric">
-              <span class="score-separator">:</span>
-              <input type="number" id="score-b" min="0" max="20" value="0" inputmode="numeric">
-              <span class="team-label" id="label-team-b">Team B</span>
+            <label>Who will win?</label>
+            <div class="pick-group" id="pick-group">
+              <button class="pick-btn" data-pick="teamA" onclick="selectPick(this)">
+                <span class="pick-icon">🏠</span> <span id="pick-team-a">Team A</span>
+              </button>
+              <button class="pick-btn" data-pick="draw" onclick="selectPick(this)">
+                <span class="pick-icon">🤝</span> Draw
+              </button>
+              <button class="pick-btn" data-pick="teamB" onclick="selectPick(this)">
+                <span class="pick-icon">✈️</span> <span id="pick-team-b">Team B</span>
+              </button>
             </div>
           </div>
 
@@ -523,29 +285,32 @@
 
 <script>
 // ============ CONFIGURATION ============
-// Replace this URL with your deployed Google Apps Script Web App URL
 const API_URL = 'https://script.google.com/macros/s/AKfycbwM-OD3NTjKqiYEoH1pmgrtlCLGNXawA3mD-ZnsmjqUJalqGUlaX-uhgqJETm9AAcuy/exec';
 
 // ============ STATE ============
 let currentMatches = [];
 let selectedMatchIndex = 0;
+let selectedPick = '';
 let isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
 
 // ============ INIT ============
 document.addEventListener('DOMContentLoaded', () => {
-  // Show admin tabs if admin mode
   if (isAdmin) {
     document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('visible'));
   }
-
-  // Restore saved name and shift from localStorage
   const savedName = localStorage.getItem('dby8_name');
   const savedShift = localStorage.getItem('dby8_shift');
   if (savedName) document.getElementById('name').value = savedName;
   if (savedShift) document.getElementById('shift').value = savedShift;
-
   loadTodaysMatch();
 });
+
+// ============ PICK SELECTION ============
+function selectPick(btn) {
+  document.querySelectorAll('.pick-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedPick = btn.getAttribute('data-pick');
+}
 
 // ============ TAB NAVIGATION ============
 function switchTab(tab) {
@@ -553,37 +318,18 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
   document.getElementById('content-' + tab).classList.add('active');
-
   if (tab === 'standings') loadLeaderboard();
 }
 
 // ============ API CALLS ============
 async function apiGet(action) {
-  const url = API_URL + '?action=' + action;
-  const response = await fetch(url);
+  const response = await fetch(API_URL + '?action=' + action);
   return response.json();
 }
 
-async function apiPost(action, data) {
-  const url = API_URL + '?action=' + action;
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-    mode: 'no-cors'
-  });
-
-  // no-cors returns opaque response, so we use a workaround
-  // Actually, Google Apps Script supports CORS for deployed web apps
-  // Let's use regular mode
-  return null;
-}
-
-// Proper POST with CORS (Google Apps Script supports this)
 async function apiPostCors(action, data) {
-  const url = API_URL + '?action=' + action;
   try {
-    const response = await fetch(url, {
+    const response = await fetch(API_URL + '?action=' + action, {
       method: 'POST',
       body: JSON.stringify(data),
       redirect: 'follow'
@@ -607,23 +353,16 @@ async function loadTodaysMatch() {
 
   try {
     const data = await apiGet('getMatch');
-
     loading.style.display = 'none';
 
     if (data.matches && data.matches.length > 0) {
       currentMatches = data.matches;
       matchArea.style.display = 'block';
-
-      if (currentMatches.length > 1) {
-        renderMatchSelector();
-      }
-
+      if (currentMatches.length > 1) renderMatchSelector();
       renderMatch(0);
     } else {
       noMatch.style.display = 'block';
-      if (data.message) {
-        document.getElementById('next-match-info').textContent = data.message;
-      }
+      if (data.message) document.getElementById('next-match-info').textContent = data.message;
     }
   } catch (err) {
     loading.style.display = 'none';
@@ -635,7 +374,6 @@ function renderMatchSelector() {
   const container = document.getElementById('match-selector');
   container.style.display = 'flex';
   container.innerHTML = '';
-
   currentMatches.forEach((match, idx) => {
     const tab = document.createElement('button');
     tab.className = 'match-tab' + (idx === 0 ? ' active' : '');
@@ -651,10 +389,11 @@ function renderMatchSelector() {
 
 function renderMatch(index) {
   selectedMatchIndex = index;
-  const match = currentMatches[index];
-  const display = document.getElementById('match-display');
+  selectedPick = '';
+  document.querySelectorAll('.pick-btn').forEach(b => b.classList.remove('selected'));
 
-  display.innerHTML = `
+  const match = currentMatches[index];
+  document.getElementById('match-display').innerHTML = `
     <div class="match-round">${escapeHtml(match.round || 'Group Stage')}</div>
     <div class="match-teams">
       <span class="team-name">${escapeHtml(match.teamA)}</span>
@@ -664,30 +403,34 @@ function renderMatch(index) {
     <div class="match-date">${formatDate(match.date)}</div>
   `;
 
-  document.getElementById('label-team-a').textContent = match.teamA;
-  document.getElementById('label-team-b').textContent = match.teamB;
+  // Update pick button labels
+  document.getElementById('pick-team-a').textContent = match.teamA;
+  document.getElementById('pick-team-b').textContent = match.teamB;
 
-  // Reset scores
-  document.getElementById('score-a').value = '0';
-  document.getElementById('score-b').value = '0';
+  // Re-enable submit
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = false;
+  btn.textContent = 'Submit Prediction';
 }
 
 // ============ SUBMIT PREDICTION ============
 async function submitPrediction() {
   const name = document.getElementById('name').value.trim();
   const shift = document.getElementById('shift').value;
-  const scoreA = document.getElementById('score-a').value;
-  const scoreB = document.getElementById('score-b').value;
 
-  // Validation
   if (!name) return showMessage('Please enter your name.', 'error');
   if (!shift) return showMessage('Please select your shift.', 'error');
+  if (!selectedPick) return showMessage('Please pick a winner.', 'error');
   if (currentMatches.length === 0) return showMessage('No match available.', 'error');
 
   const match = currentMatches[selectedMatchIndex];
   const matchLabel = match.teamA + ' vs ' + match.teamB;
 
-  // Save name and shift for convenience
+  // Resolve pick to a readable label
+  let pickLabel = 'Draw';
+  if (selectedPick === 'teamA') pickLabel = match.teamA;
+  if (selectedPick === 'teamB') pickLabel = match.teamB;
+
   localStorage.setItem('dby8_name', name);
   localStorage.setItem('dby8_shift', shift);
 
@@ -701,19 +444,17 @@ async function submitPrediction() {
       shift: shift,
       matchDate: match.date,
       match: matchLabel,
-      scoreA: parseInt(scoreA),
-      scoreB: parseInt(scoreB)
+      pick: pickLabel
     });
 
     if (result && result.success) {
-      showMessage('✓ Prediction submitted! ' + name + ': ' + matchLabel + ' → ' + scoreA + ':' + scoreB, 'success');
+      showMessage('✓ Prediction submitted! ' + name + ' picked: ' + pickLabel, 'success');
       btn.textContent = 'Submitted ✓';
     } else if (result && result.error) {
       showMessage(result.error, 'error');
       btn.disabled = false;
       btn.textContent = 'Submit Prediction';
     } else {
-      // Fallback for opaque responses
       showMessage('Prediction sent! If this is a duplicate, it will be rejected.', 'info');
       btn.textContent = 'Submitted';
     }
@@ -728,7 +469,6 @@ async function submitPrediction() {
 async function loadLeaderboard() {
   const loading = document.getElementById('leaderboard-loading');
   const content = document.getElementById('leaderboard-content');
-
   loading.style.display = 'block';
   content.style.display = 'none';
 
@@ -743,17 +483,9 @@ async function loadLeaderboard() {
     }
 
     let html = '<table class="leaderboard-table"><thead><tr><th>#</th><th>Name</th><th>Shift</th><th>Pts</th><th>Played</th></tr></thead><tbody>';
-
     data.leaderboard.forEach((entry, idx) => {
-      html += `<tr>
-        <td>${idx + 1}</td>
-        <td>${escapeHtml(entry.name)}</td>
-        <td style="font-size:11px;">${escapeHtml(entry.shift)}</td>
-        <td><strong>${entry.points}</strong></td>
-        <td>${entry.predictions}</td>
-      </tr>`;
+      html += '<tr><td>' + (idx+1) + '</td><td>' + escapeHtml(entry.name) + '</td><td style="font-size:11px;">' + escapeHtml(entry.shift) + '</td><td><strong>' + entry.points + '</strong></td><td>' + entry.predictions + '</td></tr>';
     });
-
     html += '</tbody></table>';
     content.innerHTML = html;
   } catch (err) {
@@ -767,45 +499,37 @@ async function loadLeaderboard() {
 async function drawWinners() {
   const btn = document.getElementById('draw-btn');
   const area = document.getElementById('winners-area');
-
   btn.disabled = true;
   btn.textContent = 'Drawing...';
 
   try {
     const data = await apiGet('drawWinners');
-
     if (data.winners) {
       let html = '';
-      const shiftLabels = {
-        'Night Shift': { emoji: '🌙', count: 5 },
-        'Late Shift': { emoji: '🌆', count: 2 },
-        'Early Shift': { emoji: '🌅', count: 3 }
-      };
-
-      for (const [shift, info] of Object.entries(shiftLabels)) {
+      const shifts = [
+        ['Night Shift', '🌙', 5],
+        ['Late Shift', '🌆', 2],
+        ['Early Shift', '🌅', 3]
+      ];
+      shifts.forEach(([shift, emoji, count]) => {
         const winners = data.winners[shift] || [];
-        html += `<div class="winner-section">
-          <h4>${info.emoji} ${shift} (${winners.length}/${info.count})</h4>`;
-
+        html += '<div class="winner-section"><h4>' + emoji + ' ' + shift + ' (' + winners.length + '/' + count + ')</h4>';
         if (winners.length === 0) {
           html += '<p style="font-size:13px; color:var(--text-light);">No participants in this shift.</p>';
         } else {
           winners.forEach(w => {
-            html += `<span class="winner-badge">🏆 ${escapeHtml(w.name)} · ${w.points} pts</span>`;
+            html += '<span class="winner-badge">🏆 ' + escapeHtml(w.name) + ' · ' + w.points + ' pts</span>';
           });
         }
-
         html += '</div>';
-      }
-
+      });
       area.innerHTML = html;
     } else if (data.error) {
-      area.innerHTML = `<p style="color:var(--error);">${escapeHtml(data.error)}</p>`;
+      area.innerHTML = '<p style="color:var(--error);">' + escapeHtml(data.error) + '</p>';
     }
   } catch (err) {
     area.innerHTML = '<p style="color:var(--error);">Could not draw winners. Try again.</p>';
   }
-
   btn.disabled = false;
   btn.textContent = 'Draw Winners';
 }
@@ -813,7 +537,7 @@ async function drawWinners() {
 // ============ UTILITIES ============
 function showMessage(text, type) {
   const area = document.getElementById('message-area');
-  area.innerHTML = `<div class="message ${type}">${escapeHtml(text)}</div>`;
+  area.innerHTML = '<div class="message ' + type + '">' + escapeHtml(text) + '</div>';
   setTimeout(() => { area.innerHTML = ''; }, 6000);
 }
 
@@ -830,6 +554,5 @@ function formatDate(dateStr) {
   return d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 </script>
-
 </body>
 </html>
