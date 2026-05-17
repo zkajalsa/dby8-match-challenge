@@ -66,6 +66,54 @@
       background: linear-gradient(180deg, rgba(17,24,51,0.95) 60%, transparent);
     }
 
+    .lang-switcher {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 20;
+    }
+
+    .lang-switcher select {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      padding-right: 24px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='white' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+    }
+
+    .lang-switcher select option {
+      background: var(--navy-deep);
+      color: white;
+    }
+
+    [dir="rtl"] .form-group input,
+    [dir="rtl"] .form-group select,
+    [dir="rtl"] .pick-btn,
+    [dir="rtl"] .leaderboard-table th {
+      text-align: right;
+    }
+
+    [dir="rtl"] .lang-switcher {
+      right: auto;
+      left: 12px;
+    }
+
+    [dir="rtl"] .form-group select {
+      background-position: left 14px center;
+      padding-right: 14px;
+      padding-left: 36px;
+    }
+
     .header-logo { font-size: 36px; margin-bottom: 4px; }
 
     .header h1 {
@@ -449,16 +497,23 @@
 <body>
 
   <div class="header">
+    <div class="lang-switcher">
+      <select id="lang-select" onchange="changeLanguage(this.value)">
+        <option value="en">🇬🇧 EN</option>
+        <option value="de">🇩🇪 DE</option>
+        <option value="ar">🇸🇦 AR</option>
+      </select>
+    </div>
     <div class="header-logo">⚽</div>
-    <h1>Match Challenge</h1>
-    <div class="subtitle">FIFA World Cup 2026</div>
+    <h1 data-i18n="title">Match Challenge</h1>
+    <div class="subtitle" data-i18n="subtitle">FIFA World Cup 2026</div>
     <div class="site-badge">DBY8 BAYREUTH</div>
   </div>
 
   <div class="container">
     <div class="nav-tabs">
-      <button class="nav-tab active" onclick="switchTab('predict')" id="tab-predict">⚽ Predict</button>
-      <button class="nav-tab" onclick="switchTab('standings')" id="tab-standings">🏆 Standings</button>
+      <button class="nav-tab active" onclick="switchTab('predict')" id="tab-predict" data-i18n="tabPredict">⚽ Predict</button>
+      <button class="nav-tab" onclick="switchTab('standings')" id="tab-standings" data-i18n="tabStandings">🏆 Standings</button>
       <button class="nav-tab admin-panel" onclick="switchTab('admin')" id="tab-admin">⚙️ Admin</button>
     </div>
 
@@ -473,8 +528,8 @@
 
       <div id="no-match" class="card no-match" style="display:none;">
         <div class="icon">🏟️</div>
-        <h3>No Match Today</h3>
-        <p id="next-match-info">Check back on match day!</p>
+        <h3 data-i18n="noMatchTitle">No Match Today</h3>
+        <p id="next-match-info" data-i18n="noMatchText">Check back on match day!</p>
       </div>
 
       <div id="match-area" style="display:none;">
@@ -483,30 +538,30 @@
 
         <div class="card" id="prediction-form">
           <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" placeholder="Enter your full name (as on badge)" autocomplete="name" maxlength="60">
+            <label for="name" data-i18n="labelName">Your Name</label>
+            <input type="text" id="name" data-i18n-placeholder="placeholderName" placeholder="Enter your full name (as on badge)" autocomplete="name" maxlength="60">
           </div>
 
           <div class="form-group">
-            <label for="shift">Your Shift</label>
+            <label for="shift" data-i18n="labelShift">Your Shift</label>
             <select id="shift" onchange="toggleOtherShift()">
-              <option value="">Select your shift</option>
-              <option value="Early Shift">Early Shift</option>
-              <option value="Late Shift">Late Shift</option>
-              <option value="Night Shift">Night Shift</option>
-              <option value="Other">Other</option>
+              <option value="" data-i18n="optionSelectShift">Select your shift</option>
+              <option value="Early Shift" data-i18n="optionEarly">Early Shift</option>
+              <option value="Late Shift" data-i18n="optionLate">Late Shift</option>
+              <option value="Night Shift" data-i18n="optionNight">Night Shift</option>
+              <option value="Other" data-i18n="optionOther">Other</option>
             </select>
-            <input type="text" id="shift-other" placeholder="Enter your shift / department" maxlength="40" style="display:none; margin-top:8px;">
+            <input type="text" id="shift-other" data-i18n-placeholder="placeholderOther" placeholder="Enter your shift / department" maxlength="40" style="display:none; margin-top:8px;">
           </div>
 
           <div class="form-group">
-            <label>Who will win?</label>
+            <label data-i18n="labelWhoWins">Who will win?</label>
             <div class="pick-group" id="pick-group">
               <button class="pick-btn" data-pick="teamA" onclick="selectPick(this)">
                 <span class="pick-icon">🏠</span> <span id="pick-team-a">Team A</span>
               </button>
               <button class="pick-btn" data-pick="draw" onclick="selectPick(this)">
-                <span class="pick-icon">🤝</span> Draw
+                <span class="pick-icon">🤝</span> <span data-i18n="pickDraw">Draw</span>
               </button>
               <button class="pick-btn" data-pick="teamB" onclick="selectPick(this)">
                 <span class="pick-icon">✈️</span> <span id="pick-team-b">Team B</span>
@@ -514,7 +569,7 @@
             </div>
           </div>
 
-          <button class="btn btn-primary" id="submit-btn" onclick="submitPrediction()">
+          <button class="btn btn-primary" id="submit-btn" onclick="submitPrediction()" data-i18n="btnSubmit">
             Submit Prediction
           </button>
         </div>
@@ -554,6 +609,170 @@
 <script>
 // ============ CONFIGURATION ============
 const API_URL = 'https://script.google.com/macros/s/AKfycbwM-OD3NTjKqiYEoH1pmgrtlCLGNXawA3mD-ZnsmjqUJalqGUlaX-uhgqJETm9AAcuy/exec';
+
+// ============ TRANSLATIONS ============
+const TRANSLATIONS = {
+  en: {
+    title: 'Match Challenge',
+    subtitle: 'FIFA World Cup 2026',
+    tabPredict: '⚽ Predict',
+    tabStandings: '🏆 Standings',
+    noMatchTitle: 'No Match Today',
+    noMatchText: 'Check back on match day!',
+    labelName: 'Your Name',
+    placeholderName: 'Enter your full name (as on badge)',
+    labelShift: 'Your Shift',
+    optionSelectShift: 'Select your shift',
+    optionEarly: 'Early Shift',
+    optionLate: 'Late Shift',
+    optionNight: 'Night Shift',
+    optionOther: 'Other',
+    placeholderOther: 'Enter your shift / department',
+    labelWhoWins: 'Who will win?',
+    pickDraw: 'Draw',
+    btnSubmit: 'Submit Prediction',
+    btnSubmitted: 'Submitted ✓',
+    btnAlreadySubmitted: 'Already Submitted ✓',
+    btnSubmitting: 'Submitting...',
+    msgSuccess: '✓ Prediction submitted!',
+    msgPickWinner: 'Please pick a winner.',
+    msgEnterName: 'Please enter your name.',
+    msgSelectShift: 'Please select your shift.',
+    msgEnterShift: 'Please enter your shift / department.',
+    msgNoMatch: 'No match available.',
+    msgNetworkError: 'Network error. Please try again.',
+    msgLoadError: 'Could not load match data. Please try again.',
+    loadingMatch: 'Loading today\'s match...',
+    loadingStandings: 'Loading standings...',
+    leaderboardTitle: '🏆 Leaderboard',
+    leaderboardEmpty: 'No predictions yet. Be the first!',
+    colRank: '#',
+    colName: 'Name',
+    colShift: 'Shift',
+    colPts: 'Pts',
+    colPlayed: 'Played'
+  },
+  de: {
+    title: 'Tipp-Challenge',
+    subtitle: 'FIFA Weltmeisterschaft 2026',
+    tabPredict: '⚽ Tippen',
+    tabStandings: '🏆 Tabelle',
+    noMatchTitle: 'Heute kein Spiel',
+    noMatchText: 'Schau am Spieltag wieder vorbei!',
+    labelName: 'Dein Name',
+    placeholderName: 'Vollständiger Name (wie auf dem Badge)',
+    labelShift: 'Deine Schicht',
+    optionSelectShift: 'Schicht auswählen',
+    optionEarly: 'Frühschicht',
+    optionLate: 'Spätschicht',
+    optionNight: 'Nachtschicht',
+    optionOther: 'Andere',
+    placeholderOther: 'Schicht / Abteilung eingeben',
+    labelWhoWins: 'Wer gewinnt?',
+    pickDraw: 'Unentschieden',
+    btnSubmit: 'Tipp abgeben',
+    btnSubmitted: 'Abgegeben ✓',
+    btnAlreadySubmitted: 'Bereits abgegeben ✓',
+    btnSubmitting: 'Wird gesendet...',
+    msgSuccess: '✓ Tipp abgegeben!',
+    msgPickWinner: 'Bitte wähle einen Gewinner.',
+    msgEnterName: 'Bitte gib deinen Namen ein.',
+    msgSelectShift: 'Bitte wähle deine Schicht.',
+    msgEnterShift: 'Bitte gib deine Schicht / Abteilung ein.',
+    msgNoMatch: 'Kein Spiel verfügbar.',
+    msgNetworkError: 'Netzwerkfehler. Bitte erneut versuchen.',
+    msgLoadError: 'Spieldaten konnten nicht geladen werden.',
+    loadingMatch: 'Heutiges Spiel wird geladen...',
+    loadingStandings: 'Tabelle wird geladen...',
+    leaderboardTitle: '🏆 Rangliste',
+    leaderboardEmpty: 'Noch keine Tipps. Sei der Erste!',
+    colRank: '#',
+    colName: 'Name',
+    colShift: 'Schicht',
+    colPts: 'Pkt',
+    colPlayed: 'Spiele'
+  },
+  ar: {
+    title: 'تحدي المباريات',
+    subtitle: 'كأس العالم 2026',
+    tabPredict: '⚽ توقع',
+    tabStandings: '🏆 الترتيب',
+    noMatchTitle: 'لا مباراة اليوم',
+    noMatchText: 'عد في يوم المباراة!',
+    labelName: 'اسمك',
+    placeholderName: 'أدخل اسمك الكامل (كما في البطاقة)',
+    labelShift: 'وردية العمل',
+    optionSelectShift: 'اختر ورديتك',
+    optionEarly: 'الوردية الصباحية',
+    optionLate: 'الوردية المسائية',
+    optionNight: 'الوردية الليلية',
+    optionOther: 'أخرى',
+    placeholderOther: 'أدخل ورديتك / قسمك',
+    labelWhoWins: 'من سيفوز؟',
+    pickDraw: 'تعادل',
+    btnSubmit: 'إرسال التوقع',
+    btnSubmitted: 'تم الإرسال ✓',
+    btnAlreadySubmitted: 'تم الإرسال مسبقاً ✓',
+    btnSubmitting: 'جاري الإرسال...',
+    msgSuccess: '✓ تم إرسال توقعك!',
+    msgPickWinner: 'يرجى اختيار الفائز.',
+    msgEnterName: 'يرجى إدخال اسمك.',
+    msgSelectShift: 'يرجى اختيار ورديتك.',
+    msgEnterShift: 'يرجى إدخال ورديتك / قسمك.',
+    msgNoMatch: 'لا توجد مباراة متاحة.',
+    msgNetworkError: 'خطأ في الشبكة. حاول مرة أخرى.',
+    msgLoadError: 'تعذر تحميل بيانات المباراة.',
+    loadingMatch: 'جاري تحميل مباراة اليوم...',
+    loadingStandings: 'جاري تحميل الترتيب...',
+    leaderboardTitle: '🏆 لوحة المتصدرين',
+    leaderboardEmpty: 'لا توقعات بعد. كن الأول!',
+    colRank: '#',
+    colName: 'الاسم',
+    colShift: 'الوردية',
+    colPts: 'نقاط',
+    colPlayed: 'مباريات'
+  }
+};
+
+let currentLang = localStorage.getItem('dby8_lang') || 'en';
+
+function changeLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('dby8_lang', lang);
+
+  // Set RTL for Arabic
+  if (lang === 'ar') {
+    document.documentElement.setAttribute('dir', 'rtl');
+  } else {
+    document.documentElement.removeAttribute('dir');
+  }
+
+  const t = TRANSLATIONS[lang];
+
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.textContent = t[key];
+  });
+
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  // Update submit button text based on state
+  const btn = document.getElementById('submit-btn');
+  if (btn.disabled) {
+    btn.textContent = t.btnAlreadySubmitted;
+  } else {
+    btn.textContent = t.btnSubmit;
+  }
+}
+
+function t(key) {
+  return TRANSLATIONS[currentLang][key] || TRANSLATIONS['en'][key] || key;
+}
 
 // ============ COUNTRY FLAGS ============
 const COUNTRY_CODES = {
@@ -601,6 +820,11 @@ let isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true
 // ============ INIT ============
 document.addEventListener('DOMContentLoaded', () => {
   if (isAdmin) document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('visible'));
+
+  // Apply saved language
+  document.getElementById('lang-select').value = currentLang;
+  changeLanguage(currentLang);
+
   const savedName = localStorage.getItem('dby8_name');
   const savedShift = localStorage.getItem('dby8_shift');
   const savedShiftType = localStorage.getItem('dby8_shift_type');
@@ -676,7 +900,7 @@ async function loadTodaysMatch() {
     }
   } catch (err) {
     loading.style.display = 'none';
-    showMessage('Could not load match data. Please try again.', 'error');
+    showMessage(t('msgLoadError'), 'error');
   }
 }
 
@@ -718,9 +942,9 @@ function renderMatch(index) {
   const btn = document.getElementById('submit-btn');
   const matchKey = match.date + '|' + match.teamA + ' vs ' + match.teamB;
   if (submittedMatches.indexOf(matchKey) !== -1) {
-    btn.disabled = true; btn.textContent = 'Already Submitted ✓';
+    btn.disabled = true; btn.textContent = t('btnAlreadySubmitted');
   } else {
-    btn.disabled = false; btn.textContent = 'Submit Prediction';
+    btn.disabled = false; btn.textContent = t('btnSubmit');
   }
 }
 
@@ -730,12 +954,12 @@ async function submitPrediction() {
   let shift = document.getElementById('shift').value;
   if (shift === 'Other') {
     shift = document.getElementById('shift-other').value.trim();
-    if (!shift) return showMessage('Please enter your shift / department.', 'error');
+    if (!shift) return showMessage(t('msgEnterShift'), 'error');
   }
-  if (!name) return showMessage('Please enter your name.', 'error');
-  if (!shift) return showMessage('Please select your shift.', 'error');
-  if (!selectedPick) return showMessage('Please pick a winner.', 'error');
-  if (currentMatches.length === 0) return showMessage('No match available.', 'error');
+  if (!name) return showMessage(t('msgEnterName'), 'error');
+  if (!shift) return showMessage(t('msgSelectShift'), 'error');
+  if (!selectedPick) return showMessage(t('msgPickWinner'), 'error');
+  if (currentMatches.length === 0) return showMessage(t('msgNoMatch'), 'error');
 
   const match = currentMatches[selectedMatchIndex];
   const matchLabel = match.teamA + ' vs ' + match.teamB;
@@ -748,25 +972,25 @@ async function submitPrediction() {
   localStorage.setItem('dby8_shift_type', document.getElementById('shift').value);
 
   const btn = document.getElementById('submit-btn');
-  btn.disabled = true; btn.textContent = 'Submitting...';
+  btn.disabled = true; btn.textContent = t('btnSubmitting');
 
   try {
     const result = await apiPostCors('submitPrediction', {
       name: name, shift: shift, matchDate: match.date, match: matchLabel, pick: pickLabel
     });
     if (result && result.success) {
-      showMessage('✓ Prediction submitted! ' + name + ' picked: ' + pickLabel, 'success');
-      btn.textContent = 'Submitted ✓';
+      showMessage(t('msgSuccess') + ' ' + name + ' → ' + pickLabel, 'success');
+      btn.textContent = t('btnSubmitted');
       const matchKey = match.date + '|' + matchLabel;
       submittedMatches.push(matchKey);
       localStorage.setItem('dby8_submitted', JSON.stringify(submittedMatches));
     } else if (result && result.error) {
-      showMessage(result.error, 'error'); btn.disabled = false; btn.textContent = 'Submit Prediction';
+      showMessage(result.error, 'error'); btn.disabled = false; btn.textContent = t('btnSubmit');
     } else {
-      showMessage('Prediction sent!', 'info'); btn.textContent = 'Submitted';
+      showMessage('Prediction sent!', 'info'); btn.textContent = t('btnSubmitted');
     }
   } catch (err) {
-    showMessage('Network error. Please try again.', 'error'); btn.disabled = false; btn.textContent = 'Submit Prediction';
+    showMessage(t('msgNetworkError'), 'error'); btn.disabled = false; btn.textContent = t('btnSubmit');
   }
 }
 
@@ -779,10 +1003,10 @@ async function loadLeaderboard() {
     const data = await apiGet('getLeaderboard');
     loading.style.display = 'none'; content.style.display = 'block';
     if (!data.leaderboard || data.leaderboard.length === 0) {
-      content.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:14px; padding:20px;">No predictions yet. Be the first!</p>';
+      content.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:14px; padding:20px;">' + t('leaderboardEmpty') + '</p>';
       return;
     }
-    let html = '<table class="leaderboard-table"><thead><tr><th>#</th><th>Name</th><th>Shift</th><th>Pts</th><th>Played</th></tr></thead><tbody>';
+    let html = '<table class="leaderboard-table"><thead><tr><th>' + t('colRank') + '</th><th>' + t('colName') + '</th><th>' + t('colShift') + '</th><th>' + t('colPts') + '</th><th>' + t('colPlayed') + '</th></tr></thead><tbody>';
     data.leaderboard.forEach((entry, idx) => {
       const medal = idx === 0 ? '🥇 ' : idx === 1 ? '🥈 ' : idx === 2 ? '🥉 ' : '';
       html += '<tr><td>' + medal + (idx+1) + '</td><td>' + escapeHtml(entry.name) + '</td><td style="font-size:11px;">' + escapeHtml(entry.shift) + '</td><td><strong>' + entry.points + '</strong></td><td>' + entry.predictions + '</td></tr>';
