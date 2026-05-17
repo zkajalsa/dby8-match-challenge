@@ -538,8 +538,8 @@
 
         <div class="card" id="prediction-form">
           <div class="form-group">
-            <label for="name" data-i18n="labelName">Your Name</label>
-            <input type="text" id="name" data-i18n-placeholder="placeholderName" placeholder="Enter your full name (as on badge)" autocomplete="name" maxlength="60">
+            <label for="name" data-i18n="labelName">Your Login</label>
+            <input type="text" id="name" data-i18n-placeholder="placeholderName" placeholder="Enter your full login" autocomplete="username" maxlength="60" oninput="this.value = this.value.toLowerCase().replace(/[^a-z0-9._\-]/g, '')" style="text-transform: lowercase;" pattern="[a-z0-9._\-]+">
           </div>
 
           <div class="form-group">
@@ -551,7 +551,7 @@
               <option value="Night Shift" data-i18n="optionNight">Night Shift</option>
               <option value="Other" data-i18n="optionOther">Other</option>
             </select>
-            <input type="text" id="shift-other" data-i18n-placeholder="placeholderOther" placeholder="Enter your shift / department" maxlength="40" style="display:none; margin-top:8px;">
+            <input type="text" id="shift-other" data-i18n-placeholder="placeholderOther" placeholder="Enter your shift / department" maxlength="40" style="display:none; margin-top:8px;" oninput="this.value = this.value.replace(/[^\x00-\x7F]/g, '')" pattern="[A-Za-z0-9 ._\-/]+">
           </div>
 
           <div class="form-group">
@@ -619,8 +619,8 @@ const TRANSLATIONS = {
     tabStandings: '🏆 Standings',
     noMatchTitle: 'No Match Today',
     noMatchText: 'Check back on match day!',
-    labelName: 'Your Name',
-    placeholderName: 'Enter your full name (as on badge)',
+    labelName: 'Your Login',
+    placeholderName: 'Enter your full login',
     labelShift: 'Your Shift',
     optionSelectShift: 'Select your shift',
     optionEarly: 'Early Shift',
@@ -636,7 +636,7 @@ const TRANSLATIONS = {
     btnSubmitting: 'Submitting...',
     msgSuccess: '✓ Prediction submitted!',
     msgPickWinner: 'Please pick a winner.',
-    msgEnterName: 'Please enter your name.',
+    msgEnterName: 'Please enter your login.',
     msgSelectShift: 'Please select your shift.',
     msgEnterShift: 'Please enter your shift / department.',
     msgNoMatch: 'No match available.',
@@ -659,8 +659,8 @@ const TRANSLATIONS = {
     tabStandings: '🏆 Tabelle',
     noMatchTitle: 'Heute kein Spiel',
     noMatchText: 'Schau am Spieltag wieder vorbei!',
-    labelName: 'Dein Name',
-    placeholderName: 'Vollständiger Name (wie auf dem Badge)',
+    labelName: 'Dein Login',
+    placeholderName: 'Gib dein vollständiges Login ein',
     labelShift: 'Deine Schicht',
     optionSelectShift: 'Schicht auswählen',
     optionEarly: 'Frühschicht',
@@ -676,7 +676,7 @@ const TRANSLATIONS = {
     btnSubmitting: 'Wird gesendet...',
     msgSuccess: '✓ Tipp abgegeben!',
     msgPickWinner: 'Bitte wähle einen Gewinner.',
-    msgEnterName: 'Bitte gib deinen Namen ein.',
+    msgEnterName: 'Bitte gib dein Login ein.',
     msgSelectShift: 'Bitte wähle deine Schicht.',
     msgEnterShift: 'Bitte gib deine Schicht / Abteilung ein.',
     msgNoMatch: 'Kein Spiel verfügbar.',
@@ -699,8 +699,8 @@ const TRANSLATIONS = {
     tabStandings: '🏆 الترتيب',
     noMatchTitle: 'لا مباراة اليوم',
     noMatchText: 'عد في يوم المباراة!',
-    labelName: 'اسمك',
-    placeholderName: 'أدخل اسمك الكامل (كما في البطاقة)',
+    labelName: 'تسجيل الدخول',
+    placeholderName: 'أدخل اسم تسجيل الدخول الكامل',
     labelShift: 'وردية العمل',
     optionSelectShift: 'اختر ورديتك',
     optionEarly: 'الوردية الصباحية',
@@ -716,7 +716,7 @@ const TRANSLATIONS = {
     btnSubmitting: 'جاري الإرسال...',
     msgSuccess: '✓ تم إرسال توقعك!',
     msgPickWinner: 'يرجى اختيار الفائز.',
-    msgEnterName: 'يرجى إدخال اسمك.',
+    msgEnterName: 'يرجى إدخال تسجيل الدخول.',
     msgSelectShift: 'يرجى اختيار ورديتك.',
     msgEnterShift: 'يرجى إدخال ورديتك / قسمك.',
     msgNoMatch: 'لا توجد مباراة متاحة.',
