@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#111833">
+  <meta name="format-detection" content="telephone=no">
   <title>DBY8 Bayreuth — Soccer Match Challenge</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -35,6 +40,7 @@
       background: var(--navy-deep);
       color: var(--text);
       min-height: 100vh;
+      min-height: -webkit-fill-available;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -42,7 +48,15 @@
       background-size: cover;
       background-position: center top;
       background-repeat: no-repeat;
-      background-attachment: fixed;
+      background-attachment: scroll;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-text-size-adjust: 100%;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    html {
+      height: -webkit-fill-available;
     }
 
     body::before {
@@ -146,6 +160,31 @@
     }
 
     .container { width: 100%; max-width: 460px; padding: 0 16px 16px; flex: 1; }
+
+    /* Desktop improvements */
+    @media (min-width: 768px) {
+      .container { max-width: 520px; padding: 0 24px 24px; }
+      .card { padding: 28px 24px; }
+      .header { padding: 28px 24px 24px; }
+      .header h1 { font-size: 28px; }
+      .header .subtitle { font-size: 12px; }
+      .match-teams { gap: 20px; }
+      .team-name { font-size: 18px; }
+      .pick-btn { padding: 18px; font-size: 17px; }
+      .btn { padding: 18px; font-size: 16px; }
+      .form-group input, .form-group select { padding: 15px 16px; }
+      .nav-tab { padding: 15px; font-size: 14px; }
+      .leaderboard-table { font-size: 14px; }
+      .leaderboard-table td { padding: 12px; }
+    }
+
+    @media (min-width: 1024px) {
+      .container { max-width: 560px; }
+      .header h1 { font-size: 32px; }
+      .pick-btn { cursor: pointer; }
+      .pick-btn:hover { transform: translateY(-1px); }
+      .btn-primary:hover { transform: translateY(-2px); }
+    }
 
     /* Cards */
     .card {
@@ -274,7 +313,7 @@
 
     .nav-tab {
       flex: 1;
-      padding: 13px;
+      padding: 14px;
       text-align: center;
       font-size: 13px;
       font-weight: 700;
@@ -285,6 +324,8 @@
       transition: all 0.2s;
       font-family: 'Outfit', sans-serif;
       letter-spacing: 0.5px;
+      min-height: 48px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .nav-tab.active {
@@ -306,16 +347,17 @@
 
     .form-group input, .form-group select {
       width: 100%;
-      padding: 13px 14px;
+      padding: 14px 14px;
       border: 1.5px solid var(--card-border);
       border-radius: 10px;
-      font-size: 15px;
+      font-size: 16px;
       color: var(--white);
       background: rgba(255,255,255,0.06);
       transition: border-color 0.2s;
       -webkit-appearance: none;
       appearance: none;
       font-family: 'Outfit', sans-serif;
+      min-height: 48px;
     }
 
     .form-group input::placeholder { color: rgba(255,255,255,0.3); }
@@ -353,6 +395,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      min-height: 52px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .pick-btn:hover {
@@ -372,16 +416,18 @@
     /* Buttons */
     .btn {
       width: 100%;
-      padding: 15px;
+      padding: 16px;
       border: none;
       border-radius: 12px;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 800;
       cursor: pointer;
       transition: all 0.2s;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       font-family: 'Outfit', sans-serif;
+      min-height: 52px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .btn-primary {
