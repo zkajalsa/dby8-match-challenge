@@ -978,7 +978,7 @@ function renderMatch(index) {
       '<div class="vs-badge">VS</div>' +
       '<div class="team-block"><span class="team-flag">' + getFlagLarge(match.teamB) + '</span><span class="team-name">' + escapeHtml(match.teamB) + '</span></div>' +
     '</div>' +
-    '<div class="match-date">' + formatDate(match.date) + '</div>';
+    '<div class="match-date">' + formatDate(match.date) + (match.kickoff ? ' · ⏰ Kickoff: ' + match.kickoff + ' CET' : '') + '</div>';
 
   document.querySelector('[data-pick="teamA"] .pick-icon').innerHTML = getFlagText(match.teamA);
   document.getElementById('pick-team-a').textContent = match.teamA;
