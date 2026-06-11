@@ -569,13 +569,13 @@
     <div class="tab-content active" id="content-predict">
       <div id="loading" class="loading">
         <div class="spinner"></div>
-        <p>Loading today's match...</p>
+        <p>Loading this week's matches...</p>
       </div>
 
       <div id="no-match" class="card no-match" style="display:none;">
         <div class="icon">🏟️</div>
-        <h3 data-i18n="noMatchTitle">No Match Today</h3>
-        <p id="next-match-info" data-i18n="noMatchText">Check back on match day!</p>
+        <h3 data-i18n="noMatchTitle">No Matches This Week</h3>
+        <p id="next-match-info" data-i18n="noMatchText">Check back next week!</p>
       </div>
 
       <div id="match-area" style="display:none;">
@@ -663,8 +663,8 @@ const TRANSLATIONS = {
     subtitle: 'Summer Soccer Event',
     tabPredict: '⚽ Predict',
     tabStandings: '🏆 Standings',
-    noMatchTitle: 'No Match Today',
-    noMatchText: 'Check back on match day!',
+    noMatchTitle: 'No Matches This Week',
+    noMatchText: 'Check back next week!',
     labelName: 'Your Login',
     placeholderName: 'Enter your full login',
     labelShift: 'Your Shift',
@@ -688,7 +688,7 @@ const TRANSLATIONS = {
     msgNoMatch: 'No match available.',
     msgNetworkError: 'Network error. Please try again.',
     msgLoadError: 'Could not load match data. Please try again.',
-    loadingMatch: 'Loading today\'s match...',
+    loadingMatch: 'Loading this week\'s matches...',
     loadingStandings: 'Loading standings...',
     leaderboardTitle: '🏆 Leaderboard',
     leaderboardEmpty: 'No predictions yet. Be the first!',
@@ -703,8 +703,8 @@ const TRANSLATIONS = {
     subtitle: 'Sommer-Fußball-Event',
     tabPredict: '⚽ Tippen',
     tabStandings: '🏆 Tabelle',
-    noMatchTitle: 'Heute kein Spiel',
-    noMatchText: 'Schau am Spieltag wieder vorbei!',
+    noMatchTitle: 'Keine Spiele diese Woche',
+    noMatchText: 'Schau nächste Woche wieder vorbei!',
     labelName: 'Dein Login',
     placeholderName: 'Gib dein vollständiges Login ein',
     labelShift: 'Deine Schicht',
@@ -728,7 +728,7 @@ const TRANSLATIONS = {
     msgNoMatch: 'Kein Spiel verfügbar.',
     msgNetworkError: 'Netzwerkfehler. Bitte erneut versuchen.',
     msgLoadError: 'Spieldaten konnten nicht geladen werden.',
-    loadingMatch: 'Heutiges Spiel wird geladen...',
+    loadingMatch: 'Spiele dieser Woche werden geladen...',
     loadingStandings: 'Tabelle wird geladen...',
     leaderboardTitle: '🏆 Rangliste',
     leaderboardEmpty: 'Noch keine Tipps. Sei der Erste!',
@@ -743,8 +743,8 @@ const TRANSLATIONS = {
     subtitle: 'حدث كرة القدم الصيفي',
     tabPredict: '⚽ توقع',
     tabStandings: '🏆 الترتيب',
-    noMatchTitle: 'لا مباراة اليوم',
-    noMatchText: 'عد في يوم المباراة!',
+    noMatchTitle: 'لا مباريات هذا الأسبوع',
+    noMatchText: 'عد الأسبوع القادم!',
     labelName: 'تسجيل الدخول',
     placeholderName: 'أدخل اسم تسجيل الدخول الكامل',
     labelShift: 'وردية العمل',
@@ -768,7 +768,7 @@ const TRANSLATIONS = {
     msgNoMatch: 'لا توجد مباراة متاحة.',
     msgNetworkError: 'خطأ في الشبكة. حاول مرة أخرى.',
     msgLoadError: 'تعذر تحميل بيانات المباراة.',
-    loadingMatch: 'جاري تحميل مباراة اليوم...',
+    loadingMatch: 'جاري تحميل مباريات الأسبوع...',
     loadingStandings: 'جاري تحميل الترتيب...',
     leaderboardTitle: '🏆 لوحة المتصدرين',
     leaderboardEmpty: 'لا توقعات بعد. كن الأول!',
@@ -978,7 +978,7 @@ function renderMatch(index) {
       '<div class="vs-badge">VS</div>' +
       '<div class="team-block"><span class="team-flag">' + getFlagLarge(match.teamB) + '</span><span class="team-name">' + escapeHtml(match.teamB) + '</span></div>' +
     '</div>' +
-    '<div class="match-date">' + formatDate(match.date) + (match.kickoff ? ' · ⏰ Kickoff: ' + match.kickoff + ' CET' : '') + '</div>';
+    '<div class="match-date">' + formatDate(match.date) + (match.kickoff ? ' · ⏰ ' + match.kickoff + ' CET' : '') + '</div>';
 
   document.querySelector('[data-pick="teamA"] .pick-icon').innerHTML = getFlagText(match.teamA);
   document.getElementById('pick-team-a').textContent = match.teamA;
