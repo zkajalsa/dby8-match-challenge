@@ -538,6 +538,41 @@
       font-size: 15px; font-weight: 700; margin-bottom: 14px;
       color: var(--white);
     }
+
+    /* Ticker */
+    .ticker-bar {
+      width: 100%;
+      max-width: 460px;
+      overflow: hidden;
+      background: rgba(241,196,15,0.1);
+      border: 1px solid rgba(241,196,15,0.2);
+      border-radius: 10px;
+      padding: 10px 0;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .ticker-content {
+      display: flex;
+      animation: ticker-scroll 12s linear infinite;
+      white-space: nowrap;
+      gap: 40px;
+      padding-left: 100%;
+    }
+
+    .ticker-item {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .ticker-hidden { display: none; }
+
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
   </style>
 </head>
 <body>
@@ -564,6 +599,11 @@
     </div>
 
     <div id="message-area"></div>
+
+    <!-- STREAK TICKER -->
+    <div class="ticker-bar ticker-hidden" id="ticker-bar">
+      <div class="ticker-content" id="ticker-content"></div>
+    </div>
 
     <!-- PREDICT TAB -->
     <div class="tab-content active" id="content-predict">
@@ -885,6 +925,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('shift').value = savedShift;
   }
   loadTodaysMatch();
+  loadStreaks();
 });
 
 // ============ PICK / SHIFT ============
@@ -1090,6 +1131,26 @@ async function drawWinners() {
     } else if (data.error) area.innerHTML = '<p style="color:var(--error);">' + escapeHtml(data.error) + '</p>';
   } catch (err) { area.innerHTML = '<p style="color:var(--error);">Could not draw winners.</p>'; }
   btn.disabled = false; btn.textContent = 'Draw Winners';
+}
+
+// ============ STREAK TICKER ============
+async function loadStreaks() {
+  try {
+    const data = await apiGet('getStreaks');
+    if (data.streaks && data.streaks.length > 0) {
+      const ticker = document.getElementById('ticker-bar');
+      const content = document.getElementById('ticker-content');
+      let html = '';
+      data.streaks.forEach(function(s) {
+        html += '<span class="ticker-item">🔥 ' + escapeHtml(s.name) + ' — ' + s.streak + ' correct in a row!</span>';
+      });
+      // Duplicate for seamless scroll
+      content.innerHTML = html + html;
+      ticker.classList.remove('ticker-hidden');
+    }
+  } catch (err) {
+    // Silently fail — ticker is non-essential
+  }
 }
 
 // ============ UTILITIES ============
