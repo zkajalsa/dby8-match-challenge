@@ -856,7 +856,9 @@ function changeLanguage(lang) {
   }
 
   // Refresh ticker with new language
-  loadStreaks();
+  if (typeof loadStreaks === 'function') {
+    try { loadStreaks(); } catch(e) {}
+  }
 }
 
 function t(key) {
