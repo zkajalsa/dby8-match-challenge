@@ -850,9 +850,9 @@ function changeLanguage(lang) {
   // Update submit button text based on state
   const btn = document.getElementById('submit-btn');
   if (btn.disabled) {
-    btn.textContent = t.btnAlreadySubmitted;
+    btn.textContent = TRANSLATIONS[lang].btnAlreadySubmitted;
   } else {
-    btn.textContent = t.btnSubmit;
+    btn.textContent = TRANSLATIONS[lang].btnSubmit;
   }
 
   // Refresh ticker with new language
