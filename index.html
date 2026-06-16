@@ -735,9 +735,9 @@ const TRANSLATIONS = {
     colName: 'Name',
     colShift: 'Shift',
     colPts: 'Pts',
-    colPlayed: 'Played'
+    colPlayed: 'Played',
+    tickerStreak: 'correct in a row!'
   },
-  de: {
     title: 'Tipp-Challenge',
     subtitle: 'Sommer-Fußball-Event',
     tabPredict: '⚽ Tippen',
@@ -775,9 +775,9 @@ const TRANSLATIONS = {
     colName: 'Name',
     colShift: 'Schicht',
     colPts: 'Pkt',
-    colPlayed: 'Spiele'
+    colPlayed: 'Spiele',
+    tickerStreak: 'richtig in Folge!'
   },
-  ar: {
     title: 'تحدي المباريات',
     subtitle: 'حدث كرة القدم الصيفي',
     tabPredict: '⚽ توقع',
@@ -815,7 +815,8 @@ const TRANSLATIONS = {
     colName: 'الاسم',
     colShift: 'الوردية',
     colPts: 'نقاط',
-    colPlayed: 'مباريات'
+    colPlayed: 'مباريات',
+    tickerStreak: 'صحيحة على التوالي!'
   }
 };
 
@@ -853,6 +854,9 @@ function changeLanguage(lang) {
   } else {
     btn.textContent = t.btnSubmit;
   }
+
+  // Refresh ticker with new language
+  loadStreaks();
 }
 
 function t(key) {
@@ -1141,7 +1145,7 @@ async function loadStreaks() {
       const content = document.getElementById('ticker-content');
       let html = '';
       data.streaks.forEach(function(s) {
-        html += '<span class="ticker-item">🔥 ' + escapeHtml(s.name) + ' — ' + s.streak + ' correct in a row!</span>';
+        html += '<span class="ticker-item">🔥 ' + escapeHtml(s.name) + ' — ' + s.streak + ' ' + t('tickerStreak') + '</span>';
       });
       // Duplicate for seamless scroll
       content.innerHTML = html + html;
