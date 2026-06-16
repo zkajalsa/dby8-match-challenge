@@ -928,7 +928,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('shift').value = savedShift;
   }
   loadTodaysMatch();
-  loadStreaks();
+  setTimeout(loadStreaks, 1000);
 });
 
 // ============ PICK / SHIFT ============
