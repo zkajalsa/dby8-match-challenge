@@ -1102,7 +1102,17 @@ async function loadLeaderboard() {
     let html = '<table class="leaderboard-table"><thead><tr><th>' + t('colRank') + '</th><th>' + t('colName') + '</th><th>' + t('colShift') + '</th><th>' + t('colPts') + '</th><th>' + t('colPlayed') + '</th></tr></thead><tbody>';
     data.leaderboard.forEach((entry, idx) => {
       const medal = idx === 0 ? '🥇 ' : idx === 1 ? '🥈 ' : idx === 2 ? '🥉 ' : '';
-      html += '<tr><td>' + medal + (idx+1) + '</td><td>' + escapeHtml(entry.name) + '</td><td style="font-size:11px;">' + escapeHtml(entry.shift) + '</td><td><strong>' + entry.points + '</strong></td><td>' + entry.predictions + '</td></tr>';
+      let movementHtml = '';
+      if (idx < 10 && entry.movement !== undefined) {
+        if (entry.movement === 'new') {
+          movementHtml = ' <span style="color:#3498DB;font-size:10px;font-weight:700;">🆕</span>';
+        } else if (entry.movement > 0) {
+          movementHtml = ' <span style="color:#2ECC71;font-size:10px;font-weight:700;">▲' + entry.movement + '</span>';
+        } else if (entry.movement < 0) {
+          movementHtml = ' <span style="color:#E74C3C;font-size:10px;font-weight:700;">▼' + Math.abs(entry.movement) + '</span>';
+        }
+      }
+      html += '<tr><td>' + medal + (idx+1) + movementHtml + '</td><td>' + escapeHtml(entry.name) + '</td><td style="font-size:11px;">' + escapeHtml(entry.shift) + '</td><td><strong>' + entry.points + '</strong></td><td>' + entry.predictions + '</td></tr>';
     });
     html += '</tbody></table>';
     content.innerHTML = html;
