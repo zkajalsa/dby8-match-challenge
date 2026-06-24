@@ -653,10 +653,30 @@
             </div>
           </div>
 
+          <!-- Score Prediction (knockout stage only, from June 29) -->
+          <div class="form-group" id="score-prediction-group" style="display:none;">
+            <label data-i18n="labelScorePrediction">Predict the exact score (bonus point)</label>
+            <div style="display:flex; align-items:center; gap:10px; justify-content:center;">
+              <span id="score-label-a" style="font-size:13px; font-weight:600;">Team A</span>
+              <input type="number" id="score-a" min="0" max="20" value="0" inputmode="numeric" style="width:56px; text-align:center; font-size:18px; font-weight:700; padding:10px 6px; border:1.5px solid var(--card-border); border-radius:8px; background:rgba(255,255,255,0.06); color:var(--white);">
+              <span style="font-size:16px; font-weight:700; color:var(--text-muted);">:</span>
+              <input type="number" id="score-b" min="0" max="20" value="0" inputmode="numeric" style="width:56px; text-align:center; font-size:18px; font-weight:700; padding:10px 6px; border:1.5px solid var(--card-border); border-radius:8px; background:rgba(255,255,255,0.06); color:var(--white);">
+              <span id="score-label-b" style="font-size:13px; font-weight:600;">Team B</span>
+            </div>
+          </div>
+
           <button class="btn btn-primary" id="submit-btn" onclick="submitPrediction()" data-i18n="btnSubmit">
             Submit Prediction
           </button>
         </div>
+      </div>
+    </div>
+        <div class="section-title">🏆 Leaderboard</div>
+        <div id="leaderboard-loading" class="loading">
+          <div class="spinner"></div>
+          <p>Loading standings...</p>
+        </div>
+        <div id="leaderboard-content" style="display:none;"></div>
       </div>
     </div>
 
@@ -735,7 +755,8 @@ const TRANSLATIONS = {
     colShift: 'Shift',
     colPts: 'Pts',
     colPlayed: 'Played',
-    tickerStreak: 'correct in a row!'
+    tickerStreak: 'correct in a row!',
+    labelScorePrediction: 'Predict the exact score (bonus point)'
   },
   de: {
     title: 'Tipp-Challenge',
@@ -776,7 +797,8 @@ const TRANSLATIONS = {
     colShift: 'Schicht',
     colPts: 'Pkt',
     colPlayed: 'Spiele',
-    tickerStreak: 'richtig in Folge!'
+    tickerStreak: 'richtig in Folge!',
+    labelScorePrediction: 'Genaues Ergebnis tippen (Bonuspunkt)'
   },
   ar: {
     title: 'تحدي المباريات',
@@ -817,7 +839,8 @@ const TRANSLATIONS = {
     colShift: 'الوردية',
     colPts: 'نقاط',
     colPlayed: 'مباريات',
-    tickerStreak: 'صحيحة على التوالي!'
+    tickerStreak: 'صحيحة على التوالي!',
+    labelScorePrediction: 'توقع النتيجة الدقيقة (نقطة إضافية)'
   }
 };
 
@@ -1039,6 +1062,18 @@ function renderMatch(index) {
   } else {
     btn.disabled = false; btn.textContent = t('btnSubmit');
   }
+
+  // Show score prediction for knockout stage (June 29 onwards)
+  var scoreGroup = document.getElementById('score-prediction-group');
+  if (match.date >= '2026-06-29') {
+    scoreGroup.style.display = 'block';
+    document.getElementById('score-label-a').textContent = match.teamA;
+    document.getElementById('score-label-b').textContent = match.teamB;
+    document.getElementById('score-a').value = '0';
+    document.getElementById('score-b').value = '0';
+  } else {
+    scoreGroup.style.display = 'none';
+  }
 }
 
 // ============ SUBMIT ============
@@ -1068,9 +1103,13 @@ async function submitPrediction() {
   btn.disabled = true; btn.textContent = t('btnSubmitting');
 
   try {
-    const result = await apiPostCors('submitPrediction', {
-      name: name, shift: shift, matchDate: match.date, match: matchLabel, pick: pickLabel
-    });
+    // Include score prediction for knockout matches
+    var submitData = { name: name, shift: shift, matchDate: match.date, match: matchLabel, pick: pickLabel };
+    if (match.date >= '2026-06-29') {
+      submitData.scoreA = document.getElementById('score-a').value;
+      submitData.scoreB = document.getElementById('score-b').value;
+    }
+    const result = await apiPostCors('submitPrediction', submitData);
     if (result && result.success) {
       showMessage(t('msgSuccess') + ' ' + name + ' → ' + pickLabel, 'success');
       btn.textContent = t('btnSubmitted');
