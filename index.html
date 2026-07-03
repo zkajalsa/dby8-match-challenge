@@ -1130,7 +1130,7 @@ async function loadLeaderboard() {
       content.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:14px; padding:20px;">' + t('leaderboardEmpty') + '</p>';
       return;
     }
-    let html = '<table class="leaderboard-table"><thead><tr><th>' + t('colRank') + '</th><th>' + t('colName') + '</th><th>' + t('colShift') + '</th><th>' + t('colPts') + '</th><th>' + t('colPlayed') + '</th><th>Win%</th></tr></thead><tbody>';
+    let html = '<table class="leaderboard-table"><thead><tr><th>' + t('colRank') + '</th><th>' + t('colName') + '</th><th>' + t('colShift') + '</th><th>' + t('colPts') + '</th><th>' + t('colPlayed') + '</th></tr></thead><tbody>';
     data.leaderboard.forEach((entry, idx) => {
       const medal = idx === 0 ? '🥇 ' : idx === 1 ? '🥈 ' : idx === 2 ? '🥉 ' : '';
       let movementHtml = '';
@@ -1143,7 +1143,7 @@ async function loadLeaderboard() {
           movementHtml = ' <span style="color:#E74C3C;font-size:10px;font-weight:700;">▼' + Math.abs(entry.movement) + '</span>';
         }
       }
-      html += '<tr><td>' + medal + (idx+1) + movementHtml + '</td><td>' + escapeHtml(entry.name) + '</td><td style="font-size:11px;">' + escapeHtml(entry.shift) + '</td><td><strong>' + entry.points + '</strong></td><td>' + entry.predictions + '</td><td>' + (entry.winRate || 0) + '%</td></tr>';
+      html += '<tr><td>' + medal + (idx+1) + movementHtml + '</td><td>' + escapeHtml(entry.name) + '</td><td style="font-size:11px;">' + escapeHtml(entry.shift) + '</td><td><strong>' + entry.points + '</strong></td><td>' + entry.predictions + '</td></tr>';
     });
     html += '</tbody></table>';
     content.innerHTML = html;
