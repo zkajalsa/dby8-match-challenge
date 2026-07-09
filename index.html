@@ -1261,7 +1261,7 @@ async function submitGoldenBoot() {
 
   try {
     var result = await apiPostCors('submitPrediction', {
-      name: name, shift: shift, matchDate: '2026-07-19', match: 'Golden Boot Winner', pick: pick
+      name: name, shift: shift, matchDate: '2026-07-19', match: 'Golden Boot Winner vs Pick your player', pick: pick
     });
     if (result && result.success) {
       showMessage('✓ Golden Boot pick submitted: ' + pick, 'success');
