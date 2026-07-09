@@ -1208,11 +1208,25 @@ document.getElementById('golden-boot-pick').addEventListener('change', function(
   else { otherInput.style.display = 'none'; otherInput.value = ''; }
 });
 
-// Check if already submitted golden boot
+// Check if already submitted golden boot or deadline passed
 (function() {
+  var card = document.getElementById('golden-boot-card');
+  var deadline = new Date('2026-07-11T12:00:00+02:00'); // July 11, 12:00 CET
+  var now = new Date();
+
+  // Hide completely if deadline passed
+  if (now >= deadline) {
+    card.style.display = 'none';
+    return;
+  }
+
+  // Show countdown info
+  var daysLeft = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
+  var deadlineInfo = card.querySelector('p');
+  deadlineInfo.innerHTML = 'Who will be the tournament\'s top scorer? Pick once — bonus point if correct!<br><span style="color:var(--gold);font-size:11px;">⏰ Closes: Saturday 11 July, 12:00 CET (' + daysLeft + ' days left)</span>';
+
   var submitted = localStorage.getItem('dby8_goldenboot');
   if (submitted) {
-    var card = document.getElementById('golden-boot-card');
     var btn = document.getElementById('golden-boot-btn');
     btn.disabled = true;
     btn.textContent = 'Submitted: ' + submitted + ' ✓';
@@ -1221,6 +1235,14 @@ document.getElementById('golden-boot-pick').addEventListener('change', function(
 })();
 
 async function submitGoldenBoot() {
+  // Check deadline client-side
+  var deadline = new Date('2026-07-11T12:00:00+02:00');
+  if (new Date() >= deadline) {
+    showMessage('Golden Boot predictions are closed.', 'error');
+    document.getElementById('golden-boot-card').style.display = 'none';
+    return;
+  }
+
   var pick = document.getElementById('golden-boot-pick').value;
   if (pick === 'Other') {
     pick = document.getElementById('golden-boot-other').value.trim();
